@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 3.5.1
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
+-- Servidor: localhost
 -- Tempo de Geração: 
--- Versão do Servidor: 5.5.27
--- Versão do PHP: 5.4.7
+-- Versão do Servidor: 5.5.24-log
+-- Versão do PHP: 5.3.13
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -181,6 +181,20 @@ CREATE TABLE IF NOT EXISTS `recursos` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `reservarecursos`
+--
+
+CREATE TABLE IF NOT EXISTS `reservarecursos` (
+  `codrecurso` int(11) NOT NULL DEFAULT '0',
+  `codreserva` int(11) NOT NULL DEFAULT '0',
+  `ativo` int(11) NOT NULL,
+  PRIMARY KEY (`codrecurso`,`codreserva`),
+  KEY `codreserva` (`codreserva`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `reservas`
 --
 
@@ -313,6 +327,13 @@ ALTER TABLE `professor_disciplinas`
 --
 ALTER TABLE `recursos`
   ADD CONSTRAINT `recursos_ibfk_1` FOREIGN KEY (`CodTipoRecurso`) REFERENCES `tiposrecurso` (`CodTipoRecurso`);
+
+--
+-- Restrições para a tabela `reservarecursos`
+--
+ALTER TABLE `reservarecursos`
+  ADD CONSTRAINT `reservarecursos_ibfk_1` FOREIGN KEY (`codrecurso`) REFERENCES `recursos` (`CodRecurso`),
+  ADD CONSTRAINT `reservarecursos_ibfk_2` FOREIGN KEY (`codreserva`) REFERENCES `reservas` (`CodReserva`);
 
 --
 -- Restrições para a tabela `reservas`
