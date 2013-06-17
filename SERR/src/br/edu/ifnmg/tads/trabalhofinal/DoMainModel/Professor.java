@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author IFNMG
  */
-public class Professor {
+public class Professor extends Pessoa{
     private int codprofessor;
     private String titulacao;
     private int nivel;
