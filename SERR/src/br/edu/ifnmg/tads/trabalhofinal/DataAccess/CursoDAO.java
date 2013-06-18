@@ -80,7 +80,7 @@ public class CursoDAO {
             comando.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(EmailDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CursoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
