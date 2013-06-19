@@ -28,14 +28,14 @@ public class UsuarioDAO {
         try {
             if (usuario.getCodusuario() == 0){
 
-                   PreparedStatement comando = bd.getConexao().prepareStatement("insert into usuarios(login, senha, codfuncionario, ativo) values (?,?,?,?)");
+                   PreparedStatement comando = bd.getConexao().prepareStatement("insert into usuarios(login, senha, codfuncionario, ativo) values (?,md5(?),?,?)");
                    comando.setString(1, usuario.getLogin());
                    comando.setString(2, usuario.getSenha());
                    comando.setInt(3, usuario.getFuncionario().getCodfuncionario());
                    comando.setInt(4, 1);
                    comando.executeUpdate();
             } else {
-                   PreparedStatement comando = bd.getConexao().prepareStatement("update usuarios set login = ?, senha = ? where codusuario = ?");
+                   PreparedStatement comando = bd.getConexao().prepareStatement("update usuarios set login = ?, senha = md5(?) where codusuario = ?");
                    comando.setString(1, usuario.getLogin());
                    comando.setString(2, usuario.getSenha());
                    comando.setInt(3, usuario.getCodusuario());

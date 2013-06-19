@@ -37,5 +37,5 @@ public class BD {
                 Logger.getLogger(BD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

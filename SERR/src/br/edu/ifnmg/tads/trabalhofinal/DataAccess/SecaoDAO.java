@@ -28,11 +28,16 @@ public class SecaoDAO {
     public boolean Salvar(Secao secao){
         try {
         if (secao.getCodsecao() == 0){
-            PreparedStatement comando = bd.getConexao().prepareStatement("insert into secoes(inicio, final, codusuario, ativo) values (?,?,?,?)");
-            comando.setDate(1, (Date) secao.getIniciosecao());
-            comando.setDate(2, (Date) secao.getFinalsecao());
-            comando.setInt(3, secao.getUsuario().getCodusuario());
-            comando.setInt(4, 1);
+            PreparedStatement comando = bd.getConexao().prepareStatement("insert into secoes(codusuario, ativo) values (?,?)");
+            //comando.setDate(1, (Date) secao.getIniciosecao());
+            comando.setInt(1, secao.getUsuario().getCodusuario());
+            comando.setInt(2, 1);
+            comando.executeUpdate();
+        } else {
+            PreparedStatement comando = bd.getConexao().prepareStatement("update secoes set codsecao = ? where codsecao = ?");
+            //comando.setDate(1, (Date) secao.getFinalsecao());
+            comando.setInt(1, secao.getCodsecao());
+            comando.setInt(2, secao.getCodsecao());
             comando.executeUpdate();
         }  
             return true;
@@ -40,6 +45,23 @@ public class SecaoDAO {
                 Logger.getLogger(SecaoDAO.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
         }
+    }
+    
+    public int BuscarSecao(int cod){
+        try {
+            PreparedStatement comando = bd.getConexao().prepareStatement("select max(codsecao) as codsecao from secoes where codusuario = ?");
+            comando.setInt(1, cod);
+            ResultSet resultado = comando.executeQuery();
+            resultado.first();
+            int codigosecao = 0;
+            codigosecao = resultado.getInt("codsecao");
+            return codigosecao;
+        } catch (SQLException ex) {
+            Logger.getLogger(SecaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+        
+        
     }
     
     public List<Secao> Abrir(int cod){
