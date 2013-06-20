@@ -28,16 +28,13 @@ public class SecaoDAO {
     public boolean Salvar(Secao secao){
         try {
         if (secao.getCodsecao() == 0){
-            PreparedStatement comando = bd.getConexao().prepareStatement("insert into secoes(codusuario, ativo) values (?,?)");
-            //comando.setDate(1, (Date) secao.getIniciosecao());
+            PreparedStatement comando = bd.getConexao().prepareStatement("insert into secoes(inicio, codusuario, ativo) values (now(), ?,?)");
             comando.setInt(1, secao.getUsuario().getCodusuario());
             comando.setInt(2, 1);
             comando.executeUpdate();
         } else {
-            PreparedStatement comando = bd.getConexao().prepareStatement("update secoes set codsecao = ? where codsecao = ?");
-            //comando.setDate(1, (Date) secao.getFinalsecao());
+            PreparedStatement comando = bd.getConexao().prepareStatement("update secoes set final = now() where codsecao = ?");
             comando.setInt(1, secao.getCodsecao());
-            comando.setInt(2, secao.getCodsecao());
             comando.executeUpdate();
         }  
             return true;

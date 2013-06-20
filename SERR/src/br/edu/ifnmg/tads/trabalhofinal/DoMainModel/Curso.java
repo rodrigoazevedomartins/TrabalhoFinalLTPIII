@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Maike Jordan
  */
-class Curso {
+public class Curso {
     
     private int codcurso;
     private String nome;
