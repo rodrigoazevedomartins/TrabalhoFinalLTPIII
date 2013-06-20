@@ -5,6 +5,7 @@
 package br.edu.ifnmg.tads.trabalhofinal.DataAccess;
 
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Recurso;
+import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.TipoRecurso;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,9 +60,11 @@ public class RecursoDAO {
             ResultSet resultado = comando.executeQuery();
             while (resultado.next()) {
                 Recurso recurso = new Recurso();
+                TipoRecurso tiporec = new TipoRecurso();
                 recurso.setCodrecurso(resultado.getInt("codrecurso"));
                 recurso.setNome(resultado.getString("nome"));
-                recurso.setTiporecurso(resultado.getInt("tiporecurso"));
+                tiporec.setCodtiporecurso(resultado.getInt("codtiporecurso"));
+                recurso.setTiporecurso(tiporec);
                 recursos.add(recurso);
             }
             return recursos;
