@@ -4,6 +4,7 @@
  */
 package br.edu.ifnmg.tads.trabalhofinal.DoMainModel;
 
+import java.util.List;
 import java.util.Objects;
 /**
  *
@@ -69,6 +70,10 @@ public TipoRecurso(){
     @Override
     public String toString() {
         return nome;
+    }
+
+    public void add(List<TipoRecurso> tiporecursos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
