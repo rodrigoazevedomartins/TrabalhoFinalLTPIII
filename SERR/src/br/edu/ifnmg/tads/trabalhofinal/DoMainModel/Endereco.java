@@ -45,7 +45,7 @@ public class Endereco {
         this.cep = 0;
         this.estado = "";
         this.pais = "";
-        this.pessoa = null;
+        this.pessoa = new Pessoa();
     }
 
     public int getCodendereco() {

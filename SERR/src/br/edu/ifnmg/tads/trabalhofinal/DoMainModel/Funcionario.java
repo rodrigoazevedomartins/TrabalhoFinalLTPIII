@@ -27,7 +27,7 @@ public class Funcionario extends Pessoa {
         this.codfuncionario = 0;
         this.siape = "";
         this.cargo = "";
-        this.pessoa = null;
+        this.pessoa = new Pessoa();
     }
 
     public int getCodfuncionario() {

@@ -28,7 +28,7 @@ public class Secao {
         this.codsecao = 0;
         this.iniciosecao = new Date();
         this.finalsecao = new Date();
-        this.usuario = null;
+        this.usuario = new Usuario();
     }
 
     public int getCodsecao() {

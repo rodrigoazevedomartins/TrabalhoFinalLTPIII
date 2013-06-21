@@ -4,6 +4,7 @@
  */
 package br.edu.ifnmg.tads.trabalhofinal.DoMainModel;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class Curso {
         this.codcurso = 0;
         this.nome = "";
         this.duracao = 0;
-        this.disciplinas = null;
+        this.disciplinas = new LinkedList<>();
     }
     
     public int getCodcurso() {

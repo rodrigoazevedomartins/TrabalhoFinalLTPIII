@@ -25,7 +25,7 @@ public class Telefone {
         this.codtelefone = 0;
         this.ddd = 0;
         this.numero = 0;
-        this.pessoa = null;
+        this.pessoa = new Pessoa();
     }
 
     public int getCodtelefone() {

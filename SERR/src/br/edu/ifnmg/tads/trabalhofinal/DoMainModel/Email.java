@@ -24,7 +24,7 @@ public class Email {
     public Email() {
         this.codemail = 0;
         this.endereco = "";
-        this.pessoa = null;
+        this.pessoa = new Pessoa();
     }
 
     public int getCodemail() {

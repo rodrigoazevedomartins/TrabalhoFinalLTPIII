@@ -28,7 +28,7 @@ public class Disciplina {
         this.coddisciplina = 0;
         this.nome = "";
         this.ementa = "";
-        this.curso = null;
+        this.curso = new Curso();
     }
     
     public int getCoddisciplina() {

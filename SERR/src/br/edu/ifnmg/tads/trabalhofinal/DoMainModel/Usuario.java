@@ -29,7 +29,7 @@ public class Usuario extends Funcionario{
         this.codusuario = 0;
         this.login = "";
         this.senha = "";
-        this.funcionario = null;
+        this.funcionario = new Funcionario();
     }
 
     public int getCodusuario() {

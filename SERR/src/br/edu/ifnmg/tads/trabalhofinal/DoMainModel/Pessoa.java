@@ -42,9 +42,9 @@ public class Pessoa {
         this.rg = "";
         this.cpf = 0;
         this.datanasc = new Date();
-        this.enderecos = new LinkedList<Endereco>();
-        this.emails = new LinkedList<Email>();
-        this.telefones = new LinkedList<Telefone>();
+        this.enderecos = new LinkedList<>();
+        this.emails = new LinkedList<>();
+        this.telefones = new LinkedList<>();
     }
 
     public int getCodpessoa() {

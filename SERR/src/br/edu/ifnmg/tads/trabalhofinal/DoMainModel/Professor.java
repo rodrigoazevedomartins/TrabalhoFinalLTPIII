@@ -23,8 +23,8 @@ public class Professor extends Pessoa{
         this.codprofessor = 0;
         this.titulacao = "";
         this.nivel = 0;
-        this.pessoa = null;
-        this.disciplinas = new LinkedList<Disciplina>();
+        this.pessoa = new Pessoa();
+        this.disciplinas = new LinkedList<>();
     }
 
     public Professor(int codprofessor, String titulacao, int nivel, Pessoa pessoa, List<Disciplina> disciplinas) {
