@@ -27,7 +27,8 @@ public class TelefoneDAO {
     public boolean Salvar(Telefone telefone){
        try {
             if (telefone.getCodtelefone() == 0){
-                PreparedStatement comando = bd.getConexao().prepareStatement("insert into telefones(ddd, numero, codpessoa, ativo) values (?,?,?,?)");
+                PreparedStatement comando = bd.getConexao().
+                        prepareStatement("insert into telefones(ddd, numero, codpessoa, ativo) values (?,?,?,?)");
                 comando.setInt(1, telefone.getDdd());
                 comando.setInt(2, telefone.getNumero());
                 comando.setInt(3, telefone.getPessoa().getCodpessoa());
@@ -35,7 +36,8 @@ public class TelefoneDAO {
                 comando.executeUpdate();
                 
             } else {
-                PreparedStatement comando = bd.getConexao().prepareStatement("update telefones set ddd = ?, numero = ? where codtelefone = ?");
+                PreparedStatement comando = bd.getConexao().
+                        prepareStatement("update telefones set ddd = ?, numero = ? where codtelefone = ?");
                 comando.setInt(1, telefone.getDdd());
                 comando.setInt(2, telefone.getNumero());
                 comando.setInt(3, telefone.getCodtelefone());
@@ -52,7 +54,8 @@ public class TelefoneDAO {
     public List<Telefone> Abrir(int cod){
         List<Telefone> telefones = new LinkedList<>();    
         try {
-                PreparedStatement comando = bd.getConexao().prepareStatement("select * from telefones where codpessoa = ? and ativo = 1");
+                PreparedStatement comando = bd.getConexao().
+                        prepareStatement("select * from telefones where codpessoa = ? and ativo = 1");
                 comando.setInt(1, cod);
                 ResultSet resultado = comando.executeQuery();
                 while(resultado.next()){

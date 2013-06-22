@@ -27,7 +27,9 @@ public class EnderecoDAO {
     public boolean Salvar(Endereco endereco){
         try{
         if (endereco.getCodendereco() == 0){
-            PreparedStatement comando = bd.getConexao().prepareStatement("insert into enderecos(rua, numero, complemento, bairro, cidade, cep, estado, pais, codpessoa, ativo) values (?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("insert into enderecos(rua, numero, complemento, "
+                    + "bairro, cidade, cep, estado, pais, codpessoa, ativo) values (?,?,?,?,?,?,?,?,?,?)");
                 comando.setString(1, endereco.getRua());
                 comando.setInt(2, endereco.getNumero());
                 comando.setString(3, endereco.getComplemento());
@@ -40,7 +42,9 @@ public class EnderecoDAO {
                 comando.setInt(10, 1);
                 comando.executeUpdate();
         } else {
-            PreparedStatement comando = bd.getConexao().prepareStatement("update enderecos set rua = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, cep = ?, estado = ?, pais = ? where codendereco = ?");
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("update enderecos set rua = ?, numero = ?, complemento = ?,"
+                    + " bairro = ?, cidade = ?, cep = ?, estado = ?, pais = ? where codendereco = ?");
                 comando.setString(1, endereco.getRua());
                 comando.setInt(2, endereco.getNumero());
                 comando.setString(3, endereco.getComplemento());
@@ -87,7 +91,8 @@ public class EnderecoDAO {
     
     public boolean Apagar(int cod){
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("update enderecos set ativo = 0 where codendereco = ?");
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("update enderecos set ativo = 0 where codendereco = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;

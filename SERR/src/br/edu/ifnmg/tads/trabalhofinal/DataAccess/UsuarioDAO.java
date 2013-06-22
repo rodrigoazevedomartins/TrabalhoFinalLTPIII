@@ -28,14 +28,16 @@ public class UsuarioDAO {
         try {
             if (usuario.getCodusuario() == 0){
 
-                   PreparedStatement comando = bd.getConexao().prepareStatement("insert into usuarios(login, senha, codfuncionario, ativo) values (?,md5(?),?,?)");
+                   PreparedStatement comando = bd.getConexao().
+                           prepareStatement("insert into usuarios(login, senha, codfuncionario, ativo) values (?,md5(?),?,?)");
                    comando.setString(1, usuario.getLogin());
                    comando.setString(2, usuario.getSenha());
                    comando.setInt(3, usuario.getFuncionario().getCodfuncionario());
                    comando.setInt(4, 1);
                    comando.executeUpdate();
             } else {
-                   PreparedStatement comando = bd.getConexao().prepareStatement("update usuarios set login = ?, senha = md5(?) where codusuario = ?");
+                   PreparedStatement comando = bd.getConexao().
+                           prepareStatement("update usuarios set login = ?, senha = md5(?) where codusuario = ?");
                    comando.setString(1, usuario.getLogin());
                    comando.setString(2, usuario.getSenha());
                    comando.setInt(3, usuario.getCodusuario());
@@ -45,17 +47,18 @@ public class UsuarioDAO {
         } catch (SQLException ex) {
                 Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
-        }
-        
+        }        
     }
     
     public List<Usuario> ListarTodos(){
         try {
             List<Usuario> usuarios = new LinkedList<>();
-            PreparedStatement comando = bd.getConexao().prepareStatement("select * from usuarios where ativo = 1 order by codusuario asc");
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("select * from usuarios where ativo = 1 order by codusuario asc");
             ResultSet resultado = comando.executeQuery();
             while(resultado.next()){
                 Usuario usuario = new Usuario();
+                usuario.setCodusuario(resultado.getInt("codusuario"));
                 usuario.setLogin(resultado.getString("login"));
                 usuario.setSenha(resultado.getString("senha"));
                 usuario.setCodfuncionario(resultado.getInt("codfuncionario")); 
@@ -73,11 +76,13 @@ public class UsuarioDAO {
     
     public Usuario Abrir(int cod){
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("select * from usuarios where codusuario = ?");
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("select * from usuarios where codusuario = ?");
             comando.setInt(1, cod);
             ResultSet resultado = comando.executeQuery();
             resultado.first();
             Usuario usuario = new Usuario();
+            usuario.setCodusuario(resultado.getInt("codusuario"));
             usuario.setLogin(resultado.getString("login"));
             usuario.setSenha(resultado.getString("senha"));
             usuario.setCodfuncionario(resultado.getInt("codfuncionario")); 
@@ -90,7 +95,8 @@ public class UsuarioDAO {
     
     public boolean Apagar(int cod){
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("update usuarios ativo = 0 where codusuario = ?");
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("update usuarios ativo = 0 where codusuario = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;

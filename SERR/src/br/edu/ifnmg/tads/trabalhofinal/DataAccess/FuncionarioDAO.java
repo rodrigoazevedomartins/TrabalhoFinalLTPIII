@@ -28,13 +28,16 @@ public class FuncionarioDAO {
     public boolean Salvar(Funcionario funcionario){
         try{
             if (funcionario.getCodfuncionario() == 0){
-                PreparedStatement comando = bd.getConexao().prepareStatement("insert into funcionarios (siape, cargo, ativo) values (?,?,?)");
+                PreparedStatement comando = bd.getConexao().
+                        prepareStatement("insert into funcionarios (siape, cargo, codpessoa, ativo) values (?,?,?,?)");
                 comando.setString(1, funcionario.getSiape());
                 comando.setString(2, funcionario.getCargo());
+                comando.setInt(3, funcionario.getPessoa().getCodpessoa());
                 comando.setInt(3, 1);
                 comando.executeUpdate();
             } else {
-                PreparedStatement comando = bd.getConexao().prepareStatement("update funcionarios set siape = ?, cargo = ? where codfuncionario = ?");
+                PreparedStatement comando = bd.getConexao().
+                        prepareStatement("update funcionarios set siape = ?, cargo = ? where codfuncionario = ?");
                 comando.setString(1, funcionario.getSiape());
                 comando.setString(2, funcionario.getCargo());
                 comando.setInt(3, funcionario.getCodfuncionario());
@@ -86,6 +89,8 @@ public class FuncionarioDAO {
 
             if (where.length() > 0){
                 sql = sql + " where " + where + " and ativo = 1";
+            } else {
+                sql = sql + " where ativo = 1";
             }
 
             sql = sql + order;
@@ -114,7 +119,7 @@ public class FuncionarioDAO {
         List<Funcionario> funcionarios = new LinkedList<>();
         
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("select * from funcionarios order by codfuncionario asc");
+            PreparedStatement comando = bd.getConexao().prepareStatement("select * from funcionarios where ativo = 1 order by codfuncionario asc");
             ResultSet resultado = comando.executeQuery();
             while(resultado.next()){
                 Funcionario funcionario = new Funcionario();
@@ -131,6 +136,19 @@ public class FuncionarioDAO {
         }
         
         
+    }
+    
+    public boolean Apagar(int cod){
+        try {
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("update funcionarios set ativo = 0 where codfuncionario = ?");
+            comando.setInt(1, cod);
+            comando.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
 

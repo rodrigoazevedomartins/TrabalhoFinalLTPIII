@@ -31,7 +31,8 @@ public class PessoaDAO {
         int codpessoa = 0;    
         try {
                 
-                PreparedStatement comando = bd.getConexao().prepareStatement("select max(codpessoa) as codpessoa from pessoa");
+                PreparedStatement comando = bd.getConexao().
+                        prepareStatement("select max(codpessoa) as codpessoa from pessoas");
                 ResultSet resultado = comando.executeQuery();
                 resultado.first();
                 codpessoa = (resultado.getInt("codpessoa"));
@@ -47,7 +48,8 @@ public class PessoaDAO {
     public boolean Salvar(Pessoa pessoa){
         try{
             if (pessoa.getCodpessoa() == 0){
-                PreparedStatement comando = bd.getConexao().prepareStatement("insert into pessoas(nome, rg, cpf, datanasc, ativo) values (?,?,?,?,?)");
+                PreparedStatement comando = bd.getConexao().
+                        prepareStatement("insert into pessoas(nome, rg, cpf, datanasc, ativo) values (?,?,?,?,?)");
                 comando.setString(1, pessoa.getNome());
                 comando.setString(2, pessoa.getRg());
                 comando.setInt(3, pessoa.getCpf());
@@ -55,7 +57,8 @@ public class PessoaDAO {
                 comando.setInt(5, 1);
                 comando.executeUpdate();
             } else {
-                PreparedStatement comando = bd.getConexao().prepareStatement("update pessoas set nome = ?, rg = ?, cpf = ?, datanasc = ? where codpessoa = ?");
+                PreparedStatement comando = bd.getConexao().
+                        prepareStatement("update pessoas set nome = ?, rg = ?, cpf = ?, datanasc = ? where codpessoa = ?");
                 comando.setString(1, pessoa.getNome());
                 comando.setString(2, pessoa.getRg());
                 comando.setInt(3, pessoa.getCpf());
@@ -93,7 +96,9 @@ public class PessoaDAO {
              }
              
              if (where.length() > 0){
-                 sql = sql + " where " + where;
+                 sql = sql + " where " + where + " and ativo = 1";
+             } else {
+                 sql = sql + " where ativo = 1";
              }
              
              sql = sql + order;
@@ -143,7 +148,8 @@ public class PessoaDAO {
     
     public boolean Apagar(int cod){
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("update pessoas set ativo = 0 where codpessoa = ?");
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("update pessoas set ativo = 0 where codpessoa = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;
