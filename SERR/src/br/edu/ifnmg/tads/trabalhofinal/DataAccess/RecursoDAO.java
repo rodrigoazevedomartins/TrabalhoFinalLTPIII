@@ -5,7 +5,7 @@
 package br.edu.ifnmg.tads.trabalhofinal.DataAccess;
 
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Recurso;
-import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.TempoMaximo;
+import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.MedidaTempo;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.TipoRecurso;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -103,7 +103,7 @@ public class RecursoDAO {
             while (resultado.next()) {
                 Recurso recurso = new Recurso();
                 TipoRecurso tiporecurso = new TipoRecurso();
-                TempoMaximo tempomaximo = new TempoMaximo();
+                MedidaTempo tempomaximo = new MedidaTempo();
                 recurso.setCodrecurso(resultado.getInt("codrecurso"));
                 recurso.setNome(resultado.getString("nome"));
                 recurso.setNum_patrimonio(resultado.getInt("num_patrimonio"));
@@ -131,7 +131,7 @@ public class RecursoDAO {
             while (resultado.next()) {
                 Recurso recurso = new Recurso();
                 TipoRecurso tiporecurso = new TipoRecurso();
-                TempoMaximo tempomaximo = new TempoMaximo();
+                MedidaTempo tempomaximo = new MedidaTempo();
                 recurso.setCodrecurso(resultado.getInt("codrecurso"));
                 recurso.setNome(resultado.getString("nome"));
                 recurso.setNum_patrimonio(resultado.getInt("num_patrimonio"));
@@ -158,7 +158,7 @@ public class RecursoDAO {
             resultado.first();
             Recurso recurso = new Recurso();
             TipoRecurso tiporecurso = new TipoRecurso();
-            TempoMaximo tempomaximo = new TempoMaximo();
+            MedidaTempo tempomaximo = new MedidaTempo();
             recurso.setCodrecurso(resultado.getInt("codrecurso"));
             recurso.setNome(resultado.getString("nome"));
             recurso.setNum_patrimonio(resultado.getInt("num_patrimonio"));

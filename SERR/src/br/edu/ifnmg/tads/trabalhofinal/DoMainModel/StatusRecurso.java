@@ -10,17 +10,17 @@ import java.util.Objects;
  *
  * @author Rodrigo
  */
-public class Status {
+public class StatusRecurso {
     
     private int codstatusrecurso;
     private String nomestatus;
 
-    public Status(int codstatusrecurso, String nomestatus) {
+    public StatusRecurso(int codstatusrecurso, String nomestatus) {
         this.codstatusrecurso = codstatusrecurso;
         this.nomestatus = nomestatus;
     }
 
-    public Status() {
+    public StatusRecurso() {
         this.codstatusrecurso = 0;
         this.nomestatus = "";
     }
@@ -56,7 +56,7 @@ public class Status {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Status other = (Status) obj;
+        final StatusRecurso other = (StatusRecurso) obj;
         if (!Objects.equals(this.nomestatus, other.nomestatus)) {
             return false;
         }

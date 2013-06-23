@@ -10,11 +10,11 @@ import java.util.Objects;
  *
  * @author Rodrigo
  */
-public class TempoMaximo {
+public class MedidaTempo {
     private int codtempomaximo;
     private String medidatempomaximo;
     
-    public TempoMaximo(){
+    public MedidaTempo(){
         this.codtempomaximo = 0;
         this.medidatempomaximo = "";
     }
@@ -50,7 +50,7 @@ public class TempoMaximo {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final TempoMaximo other = (TempoMaximo) obj;
+        final MedidaTempo other = (MedidaTempo) obj;
         if (!Objects.equals(this.medidatempomaximo, other.medidatempomaximo)) {
             return false;
         }

@@ -18,11 +18,11 @@ public class Recurso {
     private int num_patrimonio;
     private int capacidade;
     private int tempo;
-    private TempoMaximo medidatempo;
+    private MedidaTempo medidatempo;
     private TipoRecurso tiporecurso;
     
     public Recurso(int codrecurso,String nome, String descricao, int num_patrimonio, 
-                int capacidade, int tempo, TempoMaximo medidatempo, TipoRecurso tiporecurso){
+                int capacidade, int tempo, MedidaTempo medidatempo, TipoRecurso tiporecurso){
         this.codrecurso = codrecurso;
         this.nome = nome;
         this.descricao = descricao;
@@ -39,7 +39,7 @@ public class Recurso {
         this.num_patrimonio = 0;
         this.capacidade = 0;
         this.tempo = 0;
-        this.medidatempo = new TempoMaximo();
+        this.medidatempo = new MedidaTempo();
         this.tiporecurso = new TipoRecurso();
     }
 
@@ -91,11 +91,11 @@ public class Recurso {
         this.tempo = tempo;
     }
 
-    public TempoMaximo getMedidatempo() {
+    public MedidaTempo getMedidatempo() {
         return medidatempo;
     }
 
-    public void setMedidatempo(TempoMaximo medidatempo) {
+    public void setMedidatempo(MedidaTempo medidatempo) {
         this.medidatempo = medidatempo;
     }
          

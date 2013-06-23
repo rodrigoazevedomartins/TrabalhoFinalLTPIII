@@ -30,6 +30,23 @@ public class EmprestimoReservaDAO {
         bd =  new BD();
     }
     
+    public int Consultacodpessoa(){
+        int codemprestimo_reserva = 0;    
+        try {
+                
+                PreparedStatement comando = bd.getConexao().
+                        prepareStatement("select max(codemprestimo_reserva) as codemprestimo_reserva "
+                        + "from emprestimo_reserva");
+                ResultSet resultado = comando.executeQuery();
+                resultado.first();
+                codemprestimo_reserva = (resultado.getInt("codemprestimo_reserva"));
+                return codemprestimo_reserva;
+            } catch (SQLException ex) {
+                Logger.getLogger(EmprestimoReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                return 0;
+            }   
+    }
+    
     public boolean Salvar(EmprestimoReserva emprestimoreserva) {
         try {
             if (emprestimoreserva.getCodemprestimoreserva() == 0 && 

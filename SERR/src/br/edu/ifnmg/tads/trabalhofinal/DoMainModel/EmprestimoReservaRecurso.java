@@ -12,12 +12,41 @@ import java.util.Objects;
  */
 public class EmprestimoReservaRecurso {
     
+    private int codemprestimoreservarecurso;
     private EmprestimoReserva emprestimoreserva;
     private Recurso recurso;
     private Date dataprevdevolucao;     // final previsto para devolucao
     private Date datadevolucao;         // devolucao do recurso 
-    private Status status;
+    private StatusRecurso statusrecurso;
 
+    public EmprestimoReservaRecurso(int codemprestimoreservarecurso, EmprestimoReserva emprestimoreserva, Recurso recurso, Date dataprevdevolucao, Date datadevolucao, StatusRecurso statusrecurso) {
+        this.codemprestimoreservarecurso = codemprestimoreservarecurso;
+        this.emprestimoreserva = emprestimoreserva;
+        this.recurso = recurso;
+        this.dataprevdevolucao = dataprevdevolucao;
+        this.datadevolucao = datadevolucao;
+        this.statusrecurso = statusrecurso;
+    }
+
+    public EmprestimoReservaRecurso() {
+        this.codemprestimoreservarecurso = 0;
+        this.emprestimoreserva = new EmprestimoReserva();
+        this.recurso = new Recurso();
+        this.dataprevdevolucao = new Date();
+        this.datadevolucao = new Date();
+        this.statusrecurso = new StatusRecurso();
+    }
+
+    
+    
+    public int getCodemprestimoreservarecurso() {
+        return codemprestimoreservarecurso;
+    }
+
+    public void setCodemprestimoreservarecurso(int codemprestimoreservarecurso) {
+        this.codemprestimoreservarecurso = codemprestimoreservarecurso;
+    } 
+    
     public EmprestimoReserva getEmprestimoreserva() {
         return emprestimoreserva;
     }
@@ -50,12 +79,12 @@ public class EmprestimoReservaRecurso {
         this.datadevolucao = datadevolucao;
     }
 
-    public Status getStatus() {
-        return status;
+    public StatusRecurso getStatus() {
+        return statusrecurso;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus(StatusRecurso statusrecurso) {
+        this.statusrecurso = statusrecurso;
     }
 
     @Override
