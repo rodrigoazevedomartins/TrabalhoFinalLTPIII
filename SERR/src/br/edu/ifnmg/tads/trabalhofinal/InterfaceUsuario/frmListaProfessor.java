@@ -222,12 +222,12 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
 
     private void btnAlterarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProfessorActionPerformed
         // TODO add your handling code here:
-        /*Cliente cliente = (Cliente) tblClientes.getValueAt(tblClientes.getSelectedRow(), 1);
-        frmEditarClientes janela = new frmEditarClientes(cliente.getCodcliente());
+        Professor professor = (Professor) tblProfessores.getValueAt(tblProfessores.getSelectedRow(), 1);
+        frmEditarProfessor janela = new frmEditarProfessor(professor.getCodprofessor());
         this.getParent().add(janela);
         janela.setVisible(true);
         this.setVisible(false);
-        */
+        
     }//GEN-LAST:event_btnAlterarProfessorActionPerformed
 
     private void btnBuscarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProfessorActionPerformed

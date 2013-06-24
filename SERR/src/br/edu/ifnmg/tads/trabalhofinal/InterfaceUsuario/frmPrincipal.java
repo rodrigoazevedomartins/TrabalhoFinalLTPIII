@@ -123,16 +123,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        secaodao.Salvar(secao);
-        frmLogin janela = new frmLogin();
-        janela.setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void MenuListaProfessoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaProfessoresActionPerformed
         // TODO add your handling code here:
         frmListaProfessor janela = new frmListaProfessor();
@@ -146,6 +136,16 @@ public class frmPrincipal extends javax.swing.JFrame {
         add(janela);
         janela.setVisible(true);
     }//GEN-LAST:event_MenuCadProfessorActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        secaodao.Salvar(secao);
+        frmLogin janela = new frmLogin();
+        janela.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
