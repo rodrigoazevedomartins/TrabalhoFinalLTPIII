@@ -49,12 +49,12 @@ public class PessoaDAO {
         try{
             if (pessoa.getCodpessoa() == 0){
                 PreparedStatement comando = bd.getConexao().
-                        prepareStatement("insert into pessoas(nome, rg, cpf, datanasc, ativo) values (?,?,?,?,?)");
+                        prepareStatement("insert into pessoas(nome, rg, cpf, ativo) values (?,?,?,?)");
                 comando.setString(1, pessoa.getNome());
                 comando.setString(2, pessoa.getRg());
                 comando.setInt(3, pessoa.getCpf());
-                comando.setDate(4, (Date) (pessoa.getDatanasc()));
-                comando.setInt(5, 1);
+                //comando.setDate(4, (Date) (pessoa.getDatanasc()));
+                comando.setInt(4, 1);
                 comando.executeUpdate();
             } else {
                 PreparedStatement comando = bd.getConexao().
@@ -81,7 +81,7 @@ public class PessoaDAO {
              List<Pessoa> pessoas = new LinkedList<>();
              String sql = "select * from pessoas";
              String where = "";
-             String order = "order by codpessoa asc";
+             String order = " order by codpessoa asc";
              
              if (filtro.getNome().length() > 0){
                  where = "nome like '%" + filtro.getNome() + "%'";

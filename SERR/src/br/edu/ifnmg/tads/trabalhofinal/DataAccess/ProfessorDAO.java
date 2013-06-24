@@ -100,8 +100,9 @@ public class ProfessorDAO {
 
     
     public List<Professor> ListarTodos(){
-        List<Professor> professores = new LinkedList<>();
+        
         try {
+            List<Professor> professores = new LinkedList<>();
             PreparedStatement comando = bd.getConexao().
                     prepareStatement("select * from professores where ativo = 1 ORDER BY codprofessor ASC");
             ResultSet resultado = comando.executeQuery();
@@ -145,6 +146,7 @@ public class ProfessorDAO {
             PreparedStatement comando = bd.getConexao().
                     prepareStatement("update professores set ativo = 0 where codprofessor = ?");
             comando.setInt(1, cod);
+            comando.executeUpdate();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(ProfessorDAO.class.getName()).log(Level.SEVERE, null, ex);
