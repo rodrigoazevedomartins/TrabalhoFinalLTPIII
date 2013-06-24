@@ -59,7 +59,6 @@ public class frmLogin extends javax.swing.JFrame {
 
         btnEntrar.setBackground(new java.awt.Color(98, 155, 88));
         btnEntrar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
         btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon_confirm.fw.png"))); // NOI18N
         btnEntrar.setText("Entrar");
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +76,6 @@ public class frmLogin extends javax.swing.JFrame {
 
         btnCancelar.setBackground(new java.awt.Color(183, 70, 53));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon_cancel.fw.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {

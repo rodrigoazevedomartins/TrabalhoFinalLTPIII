@@ -71,7 +71,7 @@ public class EmailDAO {
     public boolean Apagar(int cod){
         try {
             PreparedStatement comando = bd.getConexao().
-                    prepareStatement("update emails set status = 0 where codemail = ?");
+                    prepareStatement("update emails set ativo = 0 where codemail = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;

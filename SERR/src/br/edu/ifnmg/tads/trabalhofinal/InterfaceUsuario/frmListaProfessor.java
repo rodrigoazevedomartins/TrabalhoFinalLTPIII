@@ -64,7 +64,7 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
         txtFiltro = new javax.swing.JTextField();
 
         setClosable(true);
-        setTitle("Professores");
+        setTitle("Lista de Professores");
 
         tblProfessores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -87,6 +87,8 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblProfessores);
 
+        btnRemoverCliente.setBackground(new java.awt.Color(98, 155, 88));
+        btnRemoverCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnRemoverCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon_remove.fw.png"))); // NOI18N
         btnRemoverCliente.setText("  Remover");
         btnRemoverCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -95,13 +97,16 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAlterarProfessor.setText("Alterar");
+        btnAlterarProfessor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnAlterarProfessor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon_editar.fw.png"))); // NOI18N
+        btnAlterarProfessor.setText("  Alterar");
         btnAlterarProfessor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarProfessorActionPerformed(evt);
             }
         });
 
+        btnBuscarProfessor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscarProfessor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon_busca.fw.png"))); // NOI18N
         btnBuscarProfessor.setText("  Buscar");
         btnBuscarProfessor.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +115,8 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
             }
         });
 
-        cbxfiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Código", "Nome", "RG", "CPF", "Nível", "Titulação" }));
+        cbxfiltro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cbxfiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "  Código", "  Nome", "  RG", "  CPF", "  Nível", "  Titulação" }));
         cbxfiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxfiltroActionPerformed(evt);
@@ -128,7 +134,7 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
                         .addComponent(txtFiltro)
                         .addGap(18, 18, 18)
                         .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRemoverCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -141,19 +147,19 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscarProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(btnAlterarProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnRemoverCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscarProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(btnAlterarProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnRemoverCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -186,48 +192,57 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
     
     private void btnRemoverClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverClienteActionPerformed
         // TODO add your handling code here:
-        professores = new LinkedList<>();
-        professores = professordao.ListarTodos();
-        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Apagar esse Professor?") == 0){
-            Professor professor = (Professor) tblProfessores.getValueAt(tblProfessores.getSelectedRow(), 1);
+        if (tblProfessores.getSelectedRow() >=0){
+        
+            professores = new LinkedList<>();
+            professores = professordao.ListarTodos();
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja Apagar esse Professor?") == 0){
+                Professor professor = (Professor) tblProfessores.getValueAt(tblProfessores.getSelectedRow(), 1);
 
-            pessoa = pessoadao.Abrir(professor.getCodpessoa());
-            pessoa.setEmails(emaildao.Abrir(professor.getCodpessoa()));
-            pessoa.setEnderecos(enderecodao.Abrir(professor.getCodpessoa()));
-            pessoa.setTelefones(telefonedao.Abrir(professor.getCodpessoa()));
+                pessoa = pessoadao.Abrir(professor.getCodpessoa());
+                pessoa.setEmails(emaildao.Abrir(professor.getCodpessoa()));
+                pessoa.setEnderecos(enderecodao.Abrir(professor.getCodpessoa()));
+                pessoa.setTelefones(telefonedao.Abrir(professor.getCodpessoa()));
 
-            for (Endereco en : pessoa.getEnderecos()){
-                enderecodao.Apagar(en.getCodendereco());
+                for (Endereco en : pessoa.getEnderecos()){
+                    enderecodao.Apagar(en.getCodendereco());
+                }
+
+                for (Telefone tel : pessoa.getTelefones()){
+                    telefonedao.Apagar(tel.getCodtelefone());
+                }
+
+                for (Email em : pessoa.getEmails()){
+                    emaildao.Apagar(em.getCodemail());
+                }
+
+                if (professordao.Apagar(professor.getCodprofessor()) && pessoadao.Apagar(pessoa.getCodpessoa())){
+                    professores.remove(professor);
+                    JOptionPane.showMessageDialog(rootPane, "Professor Removido com Sucesso!");
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Ação Cancelada!");
             }
 
-            for (Telefone tel : pessoa.getTelefones()){
-                telefonedao.Apagar(tel.getCodtelefone());
-            }
-
-            for (Email em : pessoa.getEmails()){
-                emaildao.Apagar(em.getCodemail());
-            }
-
-            if (professordao.Apagar(professor.getCodprofessor()) && pessoadao.Apagar(pessoa.getCodpessoa())){
-                professores.remove(professor);
-                JOptionPane.showMessageDialog(rootPane, "Professor Removido com sucesso");
-            }
-
+            preenchetabela(professores);
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Ação cancelada");
+            JOptionPane.showMessageDialog(rootPane, "Selecione um professor por favor!");
         }
-
-        preenchetabela(professores);
     }//GEN-LAST:event_btnRemoverClienteActionPerformed
 
     private void btnAlterarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProfessorActionPerformed
         // TODO add your handling code here:
-        Professor professor = (Professor) tblProfessores.getValueAt(tblProfessores.getSelectedRow(), 1);
-        frmEditarProfessor janela = new frmEditarProfessor(professor.getCodprofessor());
-        this.getParent().add(janela);
-        janela.setVisible(true);
-        this.setVisible(false);
+        if (tblProfessores.getSelectedRow() >= 0){
         
+            Professor professor = (Professor) tblProfessores.getValueAt(tblProfessores.getSelectedRow(), 1);
+            frmEditarProfessor janela = new frmEditarProfessor(professor.getCodprofessor());
+            this.getParent().add(janela);
+            janela.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um professor por favor!");
+        }
     }//GEN-LAST:event_btnAlterarProfessorActionPerformed
 
     private void btnBuscarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProfessorActionPerformed
