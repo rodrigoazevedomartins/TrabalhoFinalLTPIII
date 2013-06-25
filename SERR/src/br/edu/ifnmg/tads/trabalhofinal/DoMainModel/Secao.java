@@ -13,11 +13,11 @@ import java.util.Objects;
  */
 public class Secao {
     private int codsecao;
-    private Date iniciosecao;
-    private Date finalsecao;
+    private String iniciosecao;
+    private String finalsecao;
     private Usuario usuario;
 
-    public Secao(int codsecao, Date iniciosecao, Date finalsecao, Usuario usuario) {
+    public Secao(int codsecao, String iniciosecao, String finalsecao, Usuario usuario) {
         this.codsecao = codsecao;
         this.iniciosecao = iniciosecao;
         this.finalsecao = finalsecao;
@@ -26,8 +26,8 @@ public class Secao {
 
     public Secao() {
         this.codsecao = 0;
-        this.iniciosecao = new Date();
-        this.finalsecao = new Date();
+        this.iniciosecao = "";
+        this.finalsecao = "";
         this.usuario = new Usuario();
     }
 
@@ -39,19 +39,19 @@ public class Secao {
         this.codsecao = codsecao;
     }
 
-    public Date getIniciosecao() {
+    public String getIniciosecao() {
         return iniciosecao;
     }
 
-    public void setIniciosecao(Date iniciosecao) {
+    public void setIniciosecao(String iniciosecao) {
         this.iniciosecao = iniciosecao;
     }
 
-    public Date getFinalsecao() {
+    public String getFinalsecao() {
         return finalsecao;
     }
 
-    public void setFinalsecao(Date finalsecao) {
+    public void setFinalsecao(String finalsecao) {
         this.finalsecao = finalsecao;
     }
 
@@ -65,9 +65,8 @@ public class Secao {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.iniciosecao);
-        hash = 29 * hash + Objects.hashCode(this.finalsecao);
+        int hash = 7;
+        hash = 83 * hash + this.codsecao;
         return hash;
     }
 
@@ -80,10 +79,7 @@ public class Secao {
             return false;
         }
         final Secao other = (Secao) obj;
-        if (!Objects.equals(this.iniciosecao, other.iniciosecao)) {
-            return false;
-        }
-        if (!Objects.equals(this.finalsecao, other.finalsecao)) {
+        if (this.codsecao != other.codsecao) {
             return false;
         }
         return true;
@@ -91,7 +87,7 @@ public class Secao {
 
     @Override
     public String toString() {
-        return usuario.toString();
+        return ""+codsecao;
     }
     
 }

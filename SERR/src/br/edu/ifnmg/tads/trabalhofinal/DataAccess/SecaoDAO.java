@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -68,14 +69,24 @@ public class SecaoDAO {
         List<Secao> secoes = new LinkedList<>();
         try{
             PreparedStatement comando = bd.getConexao().
-                    prepareStatement("select * from secoes where codusuario = ? and ativo = 1");
+                    prepareStatement("select * from secoes where codusuario = ? and ativo = 1 order by codsecao desc limit 1,20 ");
             comando.setInt(1, cod);
             ResultSet resultado = comando.executeQuery();
             while(resultado.next()){
                 Secao secao = new Secao();
                 secao.setCodsecao(resultado.getInt("codsecao"));
-                secao.setIniciosecao(resultado.getDate("inicio"));
-                secao.setFinalsecao(resultado.getDate("final"));
+                SimpleDateFormat formatdata = new SimpleDateFormat("dd/MM/yyyy");
+                String datainicio = formatdata.format(resultado.getDate("inicio"));
+                SimpleDateFormat formathora = new SimpleDateFormat("HH:mm:ss");
+                String horainicio = formathora.format(resultado.getTime("inicio"));
+                secao.setIniciosecao(datainicio + " às " + horainicio);
+                
+                //SimpleDateFormat formatdatafinal = new SimpleDateFormat("dd/MM/yyyy");
+                if (resultado.getDate("final") != null && resultado.getTime("final") != null){
+                String datafinal = formatdata.format(resultado.getDate("final"));
+                String horafinal = formathora.format(resultado.getTime("final"));
+                secao.setFinalsecao(datafinal + " às " + horafinal);
+                }
                 secoes.add(secao);
             }          
             return secoes;

@@ -608,7 +608,7 @@ public class frmCadProfessor extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(487, Short.MAX_VALUE)
+                .addContainerGap(483, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -617,7 +617,7 @@ public class frmCadProfessor extends javax.swing.JInternalFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(tbdProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(118, Short.MAX_VALUE)))
+                    .addContainerGap(114, Short.MAX_VALUE)))
         );
 
         pack();
@@ -676,7 +676,33 @@ public class frmCadProfessor extends javax.swing.JInternalFrame {
         tbltelefone.setModel(model);
     }
     
-        
+    
+    private void btnAdicionarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarEnderecoActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar endereco?") == 0){
+            Endereco endereco = new Endereco();
+                endereco.setRua(txtRua.getText());
+                endereco.setNumero(Integer.parseInt(txtNumero.getText()));
+                endereco.setComplemento(txtComplemento.getText());
+                endereco.setBairro(txtBairro.getText());
+                endereco.setCidade(txtCidade.getText());
+                endereco.setEstado(txtEstado.getText());
+                endereco.setCep(Integer.parseInt(txtCep.getText()));
+                endereco.setPais(txtPais.getText());
+            endereco.setPessoa(pessoa);
+
+            if (pessoa.getEnderecos().contains(endereco)){
+                JOptionPane.showMessageDialog(RootPane, "Endereço já adicionado!");
+            } else {
+                pessoa.addEnderecos(endereco);
+                adicionaenderecotable();
+                LimpaCamposEndereco();
+                JOptionPane.showMessageDialog(RootPane, "Endereço adicionado com sucesso!");
+            }
+
+        }
+    }//GEN-LAST:event_btnAdicionarEnderecoActionPerformed
+    
     private void LimpaCamposEndereco(){
         txtRua.setText("");
         txtNumero.setText("");
@@ -697,6 +723,153 @@ public class frmCadProfessor extends javax.swing.JInternalFrame {
         txtNumeroTelefone.setText("");
     }
     
+    private void btnRemoverEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverEnderecoActionPerformed
+        // TODO add your handling code here:
+        
+        if (tblenderecos.getSelectedRow() >= 0){
+
+            if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este endereço?") == 0){
+                Endereco enderecoselect = (Endereco) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 1);
+
+                if (pessoa.getEnderecos().contains(enderecoselect)){
+                    pessoa.removeEnderecos(enderecoselect);
+                }
+
+                JOptionPane.showMessageDialog(RootPane, "Endereço removido com sucesso!");
+                adicionaenderecotable();
+                LimpaCamposEndereco();
+            }
+        } else {
+            JOptionPane.showMessageDialog(RootPane, "Selecione um endereço por favor!");
+        }
+          
+    }//GEN-LAST:event_btnRemoverEnderecoActionPerformed
+
+    private void tblenderecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblenderecosMouseClicked
+        // TODO add your handling code here:
+        Endereco en = (Endereco) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 1);
+        txtRua.setText(en.getRua());
+        txtNumero.setText(Integer.toString(en.getNumero()));
+        txtComplemento.setText(en.getComplemento());
+        txtBairro.setText(en.getBairro());
+        txtCidade.setText(en.getCidade());
+        txtCep.setText(Integer.toString(en.getCep()));
+        txtEstado.setText(en.getEstado());
+        txtPais.setText(en.getPais());
+    }//GEN-LAST:event_tblenderecosMouseClicked
+
+    private void btnLimparEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparEnderecoActionPerformed
+        // TODO add your handling code here:
+        LimpaCamposEndereco();
+    }//GEN-LAST:event_btnLimparEnderecoActionPerformed
+
+    private void btnAdicionarTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarTelefoneActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar telefone?") == 0){
+            Telefone telefone = new Telefone();
+                telefone.setDdd(Integer.parseInt(txtArea.getText()));
+                telefone.setNumero(Integer.parseInt(txtNumeroTelefone.getText()));
+            telefone.setPessoa(pessoa);
+            if(pessoa.getTelefones().contains(telefone)){
+                JOptionPane.showMessageDialog(RootPane, "Telefone já adicionado!");
+            } else {
+                pessoa.addTelefones(telefone);
+                adicionatelefonetable();
+                LimpaCamposTelefone();
+                JOptionPane.showMessageDialog(RootPane, "Telefone adicionado com sucesso!");
+            }
+        }
+    }//GEN-LAST:event_btnAdicionarTelefoneActionPerformed
+
+    private void btnRemoverTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverTelefoneActionPerformed
+        // TODO add your handling code here:
+        
+        if (tbltelefone.getSelectedRow() >= 0){
+
+            if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este telefone?") == 0){
+                Telefone telefoneselect = (Telefone) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 2);
+
+                if (pessoa.getTelefones().contains(telefoneselect)){
+                    pessoa.removeTelefones(telefoneselect);
+                }
+
+                JOptionPane.showMessageDialog(RootPane, "Telefone removido com sucesso!");
+
+                adicionatelefonetable();
+                LimpaCamposTelefone();
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(RootPane, "Selecione um telefone por favor!");
+        }
+    }//GEN-LAST:event_btnRemoverTelefoneActionPerformed
+
+    private void tbltelefoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbltelefoneMouseClicked
+        // TODO add your handling code here:
+        Telefone tel = (Telefone) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 2);
+        txtArea.setText(Integer.toString(tel.getDdd()));
+        txtNumeroTelefone.setText(Integer.toString(tel.getNumero()));
+    }//GEN-LAST:event_tbltelefoneMouseClicked
+
+    private void btnLimparTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTelefoneActionPerformed
+        // TODO add your handling code here
+        LimpaCamposTelefone();
+    }//GEN-LAST:event_btnLimparTelefoneActionPerformed
+
+    private void btnRemoverEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverEmailActionPerformed
+        // TODO add your handling code here:
+        
+        if (tblemail.getSelectedRow() >= 0){
+        
+            if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este email?") == 0){
+
+                Email emailselect = (Email) tblemail.getValueAt(tblemail.getSelectedRow(), 1);
+
+                if (pessoa.getEmails().contains(emailselect)){
+                    pessoa.removeEmails(emailselect);
+                }
+
+                JOptionPane.showMessageDialog(RootPane, "Email removido com sucesso!");
+
+                adicionaemailtable();
+                LimpaCamposEmail();
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(RootPane, "Selecione um email por favor!");
+        }
+    }//GEN-LAST:event_btnRemoverEmailActionPerformed
+
+    private void btnAdicionarEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarEmailActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar email?") == 0){
+            Email email = new Email();
+                email.setEndereco(txtEmail.getText());
+            email.setPessoa(pessoa);
+
+            if (pessoa.getEmails().contains(email)){
+                JOptionPane.showMessageDialog(RootPane, "Email já adicionado!");
+            } else {
+                pessoa.addEmails(email);
+                adicionaemailtable();
+                LimpaCamposEmail();
+                JOptionPane.showMessageDialog(RootPane, "Email adicionado com sucesso!");
+            }
+
+        }
+    }//GEN-LAST:event_btnAdicionarEmailActionPerformed
+
+    private void tblemailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblemailMouseClicked
+        // TODO add your handling code here:
+        Email ema = (Email) tblemail.getValueAt(tblemail.getSelectedRow(), 1);
+        txtEmail.setText(ema.getEndereco());
+    }//GEN-LAST:event_tblemailMouseClicked
+
+    private void btnLimparEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparEmailActionPerformed
+        // TODO add your handling code here:
+        LimpaCamposEmail();
+    }//GEN-LAST:event_btnLimparEmailActionPerformed
+
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar o Professor?") == 0){
@@ -744,178 +917,6 @@ public class frmCadProfessor extends javax.swing.JInternalFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnLimparTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTelefoneActionPerformed
-        // TODO add your handling code here
-        LimpaCamposTelefone();
-    }//GEN-LAST:event_btnLimparTelefoneActionPerformed
-
-    private void tbltelefoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbltelefoneMouseClicked
-        // TODO add your handling code here:
-        Telefone tel = (Telefone) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 2);
-        txtArea.setText(Integer.toString(tel.getDdd()));
-        txtNumeroTelefone.setText(Integer.toString(tel.getNumero()));
-    }//GEN-LAST:event_tbltelefoneMouseClicked
-
-    private void btnRemoverTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverTelefoneActionPerformed
-        // TODO add your handling code here:
-
-        if (tbltelefone.getSelectedRow() >= 0){
-
-            if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este telefone?") == 0){
-                Telefone telefoneselect = (Telefone) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 2);
-
-                if (pessoa.getTelefones().contains(telefoneselect)){
-                    pessoa.removeTelefones(telefoneselect);
-                }
-
-                JOptionPane.showMessageDialog(RootPane, "Telefone removido com sucesso!");
-
-                adicionatelefonetable();
-                LimpaCamposTelefone();
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(RootPane, "Selecione um telefone por favor!");
-        }
-    }//GEN-LAST:event_btnRemoverTelefoneActionPerformed
-
-    private void btnAdicionarTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarTelefoneActionPerformed
-        // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar telefone?") == 0){
-            Telefone telefone = new Telefone();
-            telefone.setDdd(Integer.parseInt(txtArea.getText()));
-            telefone.setNumero(Integer.parseInt(txtNumeroTelefone.getText()));
-            telefone.setPessoa(pessoa);
-            if(pessoa.getTelefones().contains(telefone)){
-                JOptionPane.showMessageDialog(RootPane, "Telefone já adicionado!");
-            } else {
-                pessoa.addTelefones(telefone);
-                adicionatelefonetable();
-                LimpaCamposTelefone();
-                JOptionPane.showMessageDialog(RootPane, "Telefone adicionado com sucesso!");
-            }
-        }
-    }//GEN-LAST:event_btnAdicionarTelefoneActionPerformed
-
-    private void btnLimparEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparEnderecoActionPerformed
-        // TODO add your handling code here:
-        LimpaCamposEndereco();
-    }//GEN-LAST:event_btnLimparEnderecoActionPerformed
-
-    private void tblenderecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblenderecosMouseClicked
-        // TODO add your handling code here:
-        Endereco en = (Endereco) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 1);
-        txtRua.setText(en.getRua());
-        txtNumero.setText(Integer.toString(en.getNumero()));
-        txtComplemento.setText(en.getComplemento());
-        txtBairro.setText(en.getBairro());
-        txtCidade.setText(en.getCidade());
-        txtCep.setText(Integer.toString(en.getCep()));
-        txtEstado.setText(en.getEstado());
-        txtPais.setText(en.getPais());
-    }//GEN-LAST:event_tblenderecosMouseClicked
-
-    private void btnRemoverEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverEnderecoActionPerformed
-        // TODO add your handling code here:
-
-        if (tblenderecos.getSelectedRow() >= 0){
-
-            if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este endereço?") == 0){
-                Endereco enderecoselect = (Endereco) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 1);
-
-                if (pessoa.getEnderecos().contains(enderecoselect)){
-                    pessoa.removeEnderecos(enderecoselect);
-                }
-
-                JOptionPane.showMessageDialog(RootPane, "Endereço removido com sucesso!");
-                adicionaenderecotable();
-                LimpaCamposEndereco();
-            }
-        } else {
-            JOptionPane.showMessageDialog(RootPane, "Selecione um endereço por favor!");
-        }
-    }//GEN-LAST:event_btnRemoverEnderecoActionPerformed
-
-    private void btnAdicionarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarEnderecoActionPerformed
-        // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar endereco?") == 0){
-            Endereco endereco = new Endereco();
-            endereco.setRua(txtRua.getText());
-            endereco.setNumero(Integer.parseInt(txtNumero.getText()));
-            endereco.setComplemento(txtComplemento.getText());
-            endereco.setBairro(txtBairro.getText());
-            endereco.setCidade(txtCidade.getText());
-            endereco.setEstado(txtEstado.getText());
-            endereco.setCep(Integer.parseInt(txtCep.getText()));
-            endereco.setPais(txtPais.getText());
-            endereco.setPessoa(pessoa);
-
-            if (pessoa.getEnderecos().contains(endereco)){
-                JOptionPane.showMessageDialog(RootPane, "Endereço já adicionado!");
-            } else {
-                pessoa.addEnderecos(endereco);
-                adicionaenderecotable();
-                LimpaCamposEndereco();
-                JOptionPane.showMessageDialog(RootPane, "Endereço adicionado com sucesso!");
-            }
-
-        }
-    }//GEN-LAST:event_btnAdicionarEnderecoActionPerformed
-
-    private void btnLimparEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparEmailActionPerformed
-        // TODO add your handling code here:
-        LimpaCamposEmail();
-    }//GEN-LAST:event_btnLimparEmailActionPerformed
-
-    private void tblemailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblemailMouseClicked
-        // TODO add your handling code here:
-        Email ema = (Email) tblemail.getValueAt(tblemail.getSelectedRow(), 1);
-        txtEmail.setText(ema.getEndereco());
-    }//GEN-LAST:event_tblemailMouseClicked
-
-    private void btnAdicionarEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarEmailActionPerformed
-        // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar email?") == 0){
-            Email email = new Email();
-            email.setEndereco(txtEmail.getText());
-            email.setPessoa(pessoa);
-
-            if (pessoa.getEmails().contains(email)){
-                JOptionPane.showMessageDialog(RootPane, "Email já adicionado!");
-            } else {
-                pessoa.addEmails(email);
-                adicionaemailtable();
-                LimpaCamposEmail();
-                JOptionPane.showMessageDialog(RootPane, "Email adicionado com sucesso!");
-            }
-
-        }
-    }//GEN-LAST:event_btnAdicionarEmailActionPerformed
-
-    private void btnRemoverEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverEmailActionPerformed
-        // TODO add your handling code here:
-
-        if (tblemail.getSelectedRow() >= 0){
-
-            if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este email?") == 0){
-
-                Email emailselect = (Email) tblemail.getValueAt(tblemail.getSelectedRow(), 1);
-
-                if (pessoa.getEmails().contains(emailselect)){
-                    pessoa.removeEmails(emailselect);
-                }
-
-                JOptionPane.showMessageDialog(RootPane, "Email removido com sucesso!");
-
-                adicionaemailtable();
-                LimpaCamposEmail();
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(RootPane, "Selecione um email por favor!");
-        }
-    }//GEN-LAST:event_btnRemoverEmailActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelDadosGerais;

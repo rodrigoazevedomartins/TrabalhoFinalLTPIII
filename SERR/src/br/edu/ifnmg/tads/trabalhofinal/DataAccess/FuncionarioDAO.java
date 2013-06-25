@@ -33,7 +33,7 @@ public class FuncionarioDAO {
                 comando.setString(1, funcionario.getSiape());
                 comando.setString(2, funcionario.getCargo());
                 comando.setInt(3, funcionario.getPessoa().getCodpessoa());
-                comando.setInt(3, 1);
+                comando.setInt(4, 1);
                 comando.executeUpdate();
             } else {
                 PreparedStatement comando = bd.getConexao().
@@ -57,6 +57,7 @@ public class FuncionarioDAO {
             ResultSet resultado = comando.executeQuery();
             resultado.first();
             Funcionario funcionario = new Funcionario();
+            funcionario.setCodfuncionario(resultado.getInt("codfuncionario"));
             funcionario.setSiape(resultado.getString("siape"));
             funcionario.setCargo(resultado.getString("cargo"));
             funcionario.setCodpessoa(resultado.getInt("codpessoa"));

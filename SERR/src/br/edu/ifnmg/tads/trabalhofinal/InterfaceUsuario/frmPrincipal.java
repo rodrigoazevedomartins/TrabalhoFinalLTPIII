@@ -55,7 +55,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         MenuProfessores = new javax.swing.JMenu();
         MenuListaProfessores = new javax.swing.JMenuItem();
         MenuCadProfessor = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        MenuFuncionarios = new javax.swing.JMenu();
+        MenuListaFuncionarios = new javax.swing.JMenuItem();
+        MenuCadFuncionario = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(20, 20));
@@ -91,8 +93,25 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuProfessores);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        MenuFuncionarios.setText("Funcionários");
+
+        MenuListaFuncionarios.setText("Lista Funcionários");
+        MenuListaFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListaFuncionariosActionPerformed(evt);
+            }
+        });
+        MenuFuncionarios.add(MenuListaFuncionarios);
+
+        MenuCadFuncionario.setText("Cadastrar Funcionario");
+        MenuCadFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadFuncionarioActionPerformed(evt);
+            }
+        });
+        MenuFuncionarios.add(MenuCadFuncionario);
+
+        jMenuBar1.add(MenuFuncionarios);
 
         setJMenuBar(jMenuBar1);
 
@@ -147,6 +166,20 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void MenuListaFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaFuncionariosActionPerformed
+        // TODO add your handling code here:
+        frmListaFuncionario janela = new frmListaFuncionario();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_MenuListaFuncionariosActionPerformed
+
+    private void MenuCadFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadFuncionarioActionPerformed
+        // TODO add your handling code here:
+        frmCadFuncionario janela = new frmCadFuncionario();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_MenuCadFuncionarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -182,12 +215,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuCadFuncionario;
     private javax.swing.JMenuItem MenuCadProfessor;
+    private javax.swing.JMenu MenuFuncionarios;
+    private javax.swing.JMenuItem MenuListaFuncionarios;
     private javax.swing.JMenuItem MenuListaProfessores;
     private javax.swing.JMenu MenuProfessores;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

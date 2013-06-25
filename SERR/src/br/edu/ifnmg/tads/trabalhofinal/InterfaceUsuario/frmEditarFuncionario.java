@@ -4,16 +4,15 @@
  */
 package br.edu.ifnmg.tads.trabalhofinal.InterfaceUsuario;
 
-import br.edu.ifnmg.tads.trabalhofinal.DataAccess.BD;
 import br.edu.ifnmg.tads.trabalhofinal.DataAccess.EmailDAO;
 import br.edu.ifnmg.tads.trabalhofinal.DataAccess.EnderecoDAO;
+import br.edu.ifnmg.tads.trabalhofinal.DataAccess.FuncionarioDAO;
 import br.edu.ifnmg.tads.trabalhofinal.DataAccess.PessoaDAO;
-import br.edu.ifnmg.tads.trabalhofinal.DataAccess.ProfessorDAO;
 import br.edu.ifnmg.tads.trabalhofinal.DataAccess.TelefoneDAO;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Email;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Endereco;
+import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Funcionario;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Pessoa;
-import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Professor;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Telefone;
 import java.awt.Component;
 import java.util.LinkedList;
@@ -26,34 +25,32 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Rodrigo
  */
-public class frmEditarProfessor extends javax.swing.JInternalFrame {
-    private Component RootPane;
-    private BD bd;
+public class frmEditarFuncionario extends javax.swing.JInternalFrame {
     private EnderecoDAO enderecodao = new EnderecoDAO();
     private TelefoneDAO telefonedao = new TelefoneDAO();
     private EmailDAO emaildao = new EmailDAO();
     private PessoaDAO pessoadao = new PessoaDAO();
-    private ProfessorDAO professordao = new ProfessorDAO();
+    private FuncionarioDAO funcionariodao = new FuncionarioDAO();
+    private Funcionario funcionario;
     private Pessoa pessoa;
     private Email email;
     private Endereco endereco;
     private Telefone telefone;
-    private Professor professor;
     private List<Email> emailapagar = new LinkedList<>();
     private List<Telefone> telefoneapagar = new LinkedList<>();
     private List<Endereco> enderecoapagar = new LinkedList<>();
+    private Component RootPane;
     
     /**
-     * Creates new form frmEditarProfessor
+     * Creates new form frmEditarFuncionario
      */
-    public frmEditarProfessor(int codprofessor) {
+    public frmEditarFuncionario(int cod) {
         initComponents();
-        bd = new BD();
-        professor = professordao.Abrir(codprofessor);
-        pessoa = pessoadao.Abrir(professor.getCodpessoa());
-        pessoa.setEmails(emaildao.Abrir(professor.getCodpessoa()));
-        pessoa.setEnderecos(enderecodao.Abrir(professor.getCodpessoa()));
-        pessoa.setTelefones(telefonedao.Abrir(professor.getCodpessoa()));
+        funcionario = funcionariodao.Abrir(cod);
+        pessoa = pessoadao.Abrir(funcionario.getCodpessoa());
+        pessoa.setEmails(emaildao.Abrir(funcionario.getCodpessoa()));
+        pessoa.setEnderecos(enderecodao.Abrir(funcionario.getCodpessoa()));
+        pessoa.setTelefones(telefonedao.Abrir(funcionario.getCodpessoa()));
         carregadadospessoa();
         adicionaemailtable();
         adicionaenderecotable();
@@ -65,6 +62,7 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
         lblcodigoendereco.setVisible(false);
         lblcodigoemail.setVisible(false);
         lblcodigotelefone.setVisible(false);
+
     }
 
     /**
@@ -87,9 +85,9 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
         txtCpf = new javax.swing.JTextField();
         txtDataNasc = new javax.swing.JTextField();
         lblNivel = new javax.swing.JLabel();
-        txtNivel = new javax.swing.JTextField();
+        txtCargo = new javax.swing.JTextField();
         lblTitulacao = new javax.swing.JLabel();
-        txtTitulacao = new javax.swing.JTextField();
+        txtSiape = new javax.swing.JTextField();
         PanelEndereco = new javax.swing.JPanel();
         lblRua = new javax.swing.JLabel();
         lblNumero = new javax.swing.JLabel();
@@ -137,7 +135,7 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Editar Professor");
+        setTitle("Editar Funcinário");
 
         PanelDadosGerais.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
 
@@ -154,10 +152,10 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
         lblDataNasc.setText("DATA NASCIMENTO: ");
 
         lblNivel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblNivel.setText("NÍVEL:");
+        lblNivel.setText("CARGO:");
 
         lblTitulacao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblTitulacao.setText("TITULAÇÃO: ");
+        lblTitulacao.setText("SIAPE: ");
 
         javax.swing.GroupLayout PanelDadosGeraisLayout = new javax.swing.GroupLayout(PanelDadosGerais);
         PanelDadosGerais.setLayout(PanelDadosGeraisLayout);
@@ -168,34 +166,36 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
                 .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
                         .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblRg, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
-                                .addComponent(txtRg)
-                                .addGap(39, 39, 39)
-                                .addComponent(lblCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDadosGeraisLayout.createSequentialGroup()
-                        .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
+                                .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblRg, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
+                                        .addComponent(txtRg)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(lblCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
+                                        .addGap(372, 372, 372)
+                                        .addComponent(lblTitulacao)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtSiape, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtNome)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDadosGeraisLayout.createSequentialGroup()
                                 .addComponent(lblDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtDataNasc))
-                            .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
-                                .addComponent(lblNivel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(39, 39, 39)
-                        .addComponent(lblTitulacao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTitulacao, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30))
+                                .addComponent(txtDataNasc)
+                                .addGap(422, 422, 422)))
+                        .addGap(17, 17, 17))
+                    .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
+                        .addComponent(lblNivel)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         PanelDadosGeraisLayout.setVerticalGroup(
             PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,17 +213,19 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
                         .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
+                        .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblTitulacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTitulacao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtSiape, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNivel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(189, 189, 189))
         );
 
         tbdProfessor.addTab("Dados Gerais", PanelDadosGerais);
@@ -562,7 +564,6 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblemail);
 
         btnLimparEmail.setBackground(new java.awt.Color(183, 70, 53));
-        btnLimparEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnLimparEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon_cancel.fw.png"))); // NOI18N
         btnLimparEmail.setText("Limpar Campos");
         btnLimparEmail.addActionListener(new java.awt.event.ActionListener() {
@@ -576,7 +577,7 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
         PanelEmailLayout.setHorizontalGroup(
             PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEmailLayout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
+                .addContainerGap(128, Short.MAX_VALUE)
                 .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEmailLayout.createSequentialGroup()
                         .addComponent(btnAdicionarEmail)
@@ -616,7 +617,7 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
                     .addComponent(btnLimparEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         tbdProfessor.addTab("Email", PanelEmail);
@@ -662,7 +663,7 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(tbdProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -676,8 +677,8 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
         txtNome.setText(pessoa.getNome());
         txtCpf.setText(Integer.toString(pessoa.getCpf()));
         txtRg.setText(pessoa.getRg());
-        txtNivel.setText(Integer.toString(professor.getNivel()));
-        txtTitulacao.setText(professor.getTitulacao());
+        txtCargo.setText(funcionario.getCargo());
+        txtSiape.setText(funcionario.getSiape());
     }
     
     private void adicionaemailtable(){
@@ -754,25 +755,26 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
         txtNumeroTelefone.setText("");
     }
 
+    
     private void btnAdicionarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarEnderecoActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar endereco?") == 0){
             int codendereco = Integer.parseInt(lblcodigoendereco.getText());
-                Endereco enderecoanterior = null;
-                if (codendereco > 0){
-                    for (Endereco end : pessoa.getEnderecos()){
-                        if (end.getCodendereco() == codendereco){
-                               enderecoanterior = end;
-                        }
-                    }
-                    if (pessoa.getEnderecos().contains(enderecoanterior))
-                            pessoa.removeEnderecos(enderecoanterior);
-                }                
-            
-            Endereco endereco = new Endereco();
-            
+            Endereco enderecoanterior = null;
             if (codendereco > 0){
-                        endereco.setCodendereco(codendereco);
+                for (Endereco end : pessoa.getEnderecos()){
+                    if (end.getCodendereco() == codendereco){
+                        enderecoanterior = end;
+                    }
+                }
+                if (pessoa.getEnderecos().contains(enderecoanterior))
+                pessoa.removeEnderecos(enderecoanterior);
+            }
+
+            Endereco endereco = new Endereco();
+
+            if (codendereco > 0){
+                endereco.setCodendereco(codendereco);
             }
             endereco.setRua(txtRua.getText());
             endereco.setNumero(Integer.parseInt(txtNumero.getText()));
@@ -790,7 +792,7 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
                 pessoa.addEnderecos(endereco);
                 adicionaenderecotable();
                 LimpaCamposEndereco();
-                
+
                 if (endereco.getCodendereco() == 0){
                     JOptionPane.showMessageDialog(RootPane, "Endereço adicionado com sucesso!");
                 } else {
@@ -802,9 +804,9 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
 
     private void btnRemoverEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverEnderecoActionPerformed
         // TODO add your handling code here:
-        
+
         if (tblenderecos.getSelectedRow() >= 0){
-        
+
             if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este endereço?") == 0){
                 Endereco enderecoselect = (Endereco) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 1);
 
@@ -819,7 +821,7 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
                 adicionaenderecotable();
                 LimpaCamposEndereco();
             } else {
-                     JOptionPane.showMessageDialog(RootPane, "Remoção cancelada!");
+                JOptionPane.showMessageDialog(RootPane, "Remoção cancelada!");
             }
         } else {
             JOptionPane.showMessageDialog(RootPane, "Selecione um endereço por favor!");
@@ -850,26 +852,26 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar telefone?") == 0){
             int codtelefone = Integer.parseInt(lblcodigotelefone.getText());
             Telefone telefoneanterior = null;
-            
+
             if (codtelefone > 0){
                 for(Telefone tel : pessoa.getTelefones()){
                     if (tel.getCodtelefone() == codtelefone){
                         telefoneanterior = tel;
                     }
                 }
-                
+
                 if (pessoa.getTelefones().contains(telefoneanterior)){
                     pessoa.removeTelefones(telefoneanterior);
                 }
-                
+
             }
-            
+
             Telefone telefone = new Telefone();
-            
-             if (codtelefone > 0){
-                    telefone.setCodtelefone(codtelefone);
-             }
-             
+
+            if (codtelefone > 0){
+                telefone.setCodtelefone(codtelefone);
+            }
+
             telefone.setDdd(Integer.parseInt(txtArea.getText()));
             telefone.setNumero(Integer.parseInt(txtNumeroTelefone.getText()));
             telefone.setPessoa(pessoa);
@@ -879,7 +881,7 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
                 pessoa.addTelefones(telefone);
                 adicionatelefonetable();
                 LimpaCamposTelefone();
-                
+
                 if (telefone.getCodtelefone() == 0){
                     JOptionPane.showMessageDialog(RootPane, "Telefone adicionado com sucesso!");
                 } else {
@@ -891,10 +893,10 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
 
     private void btnRemoverTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverTelefoneActionPerformed
         // TODO add your handling code here:
-        if (tbltelefone.getSelectedRow() >= 0){        
-        
+        if (tbltelefone.getSelectedRow() >= 0){
+
             if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este telefone?") == 0){
- 
+
                 Telefone telefoneselect = (Telefone) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 2);
 
                 if (pessoa.getTelefones().contains(telefoneselect)){
@@ -909,10 +911,10 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
                 adicionatelefonetable();
                 LimpaCamposTelefone();
             } else {
-                 JOptionPane.showMessageDialog(RootPane, "Remoção cancelada!");
+                JOptionPane.showMessageDialog(RootPane, "Remoção cancelada!");
             }
         } else {
-                JOptionPane.showMessageDialog(RootPane, "Selecione um telefone por favor!");
+            JOptionPane.showMessageDialog(RootPane, "Selecione um telefone por favor!");
         }
     }//GEN-LAST:event_btnRemoverTelefoneActionPerformed
 
@@ -930,9 +932,9 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
 
     private void btnRemoverEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverEmailActionPerformed
         // TODO add your handling code here:
-        
+
         if (tblemail.getSelectedRow() >= 0){
-        
+
             if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este email?") == 0){
                 Email emailselect = (Email) tblemail.getValueAt(tblemail.getSelectedRow(), 1);
 
@@ -948,7 +950,7 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
                 adicionaemailtable();
                 LimpaCamposEmail();
             } else {
-                 JOptionPane.showMessageDialog(RootPane, "Remoção cancelada!");
+                JOptionPane.showMessageDialog(RootPane, "Remoção cancelada!");
             }
         } else {
             JOptionPane.showMessageDialog(RootPane, "Selecione um email por favor!");
@@ -960,25 +962,25 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar email?") == 0){
             int codemail = Integer.parseInt(lblcodigoemail.getText());
             Email emailanterior = null;
-            
+
             if (codemail > 0){
                 for (Email em : pessoa.getEmails()){
                     if (em.getCodemail() == codemail){
                         emailanterior = em;
                     }
                 }
-                
+
                 if (pessoa.getEmails().contains(emailanterior)){
                     pessoa.removeEmails(emailanterior);
                 }
             }
-            
+
             Email email = new Email();
-            
+
             if (codemail > 0){
                 email.setCodemail(codemail);
             }
-            
+
             email.setEndereco(txtEmail.getText());
             email.setPessoa(pessoa);
 
@@ -1011,14 +1013,14 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Atualizar o Professor?") == 0){
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Atualizar o Funcionário?") == 0){
             pessoa.setNome(txtNome.getText());
             pessoa.setRg(txtRg.getText());
             pessoa.setCpf(Integer.parseInt(txtCpf.getText()));
             //pessoa.setDatanasc(datanasc);
 
             if (pessoadao.Salvar(pessoa)) {
-                
+
                 for(Email em : pessoa.getEmails()){
                     email = new Email(em.getCodemail(), em.getEndereco(), pessoa);
                     emaildao.Salvar(email);
@@ -1033,25 +1035,25 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
                     telefone = new Telefone(tel.getCodtelefone(), tel.getDdd(), tel.getNumero(), pessoa);
                     telefonedao.Salvar(telefone);
                 }
-                
+
                 for (Email emap : emailapagar){
                     emaildao.Apagar(emap.getCodemail());
                 }
-                
+
                 for (Endereco enap : enderecoapagar){
                     enderecodao.Apagar(enap.getCodendereco());
                 }
-                
+
                 for (Telefone telap : telefoneapagar){
                     telefonedao.Apagar(telap.getCodtelefone());
                 }
                 
-                professor.setTitulacao(txtTitulacao.getText());
-                professor.setNivel(Integer.parseInt(txtNivel.getText()));
-                professor.setPessoa(pessoa);
-                professordao.Salvar(professor);
+                funcionario.setCargo(txtCargo.getText());
+                funcionario.setSiape(txtSiape.getText());
+                funcionario.setPessoa(pessoa);
+                funcionariodao.Salvar(funcionario);
 
-                JOptionPane.showMessageDialog(RootPane, "Professor Atualizado com Sucesso!");
+                JOptionPane.showMessageDialog(RootPane, "Funcionário Atualizado com Sucesso!");
                 this.dispose();
             }
         } else {
@@ -1112,6 +1114,7 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbltelefone;
     private javax.swing.JTextField txtArea;
     private javax.swing.JTextField txtBairro;
+    private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtCep;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtComplemento;
@@ -1119,13 +1122,12 @@ public class frmEditarProfessor extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtDataNasc;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEstado;
-    private javax.swing.JTextField txtNivel;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtNumeroTelefone;
     private javax.swing.JTextField txtPais;
     private javax.swing.JTextField txtRg;
     private javax.swing.JTextField txtRua;
-    private javax.swing.JTextField txtTitulacao;
+    private javax.swing.JTextField txtSiape;
     // End of variables declaration//GEN-END:variables
 }

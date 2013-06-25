@@ -57,7 +57,7 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProfessores = new javax.swing.JTable();
-        btnRemoverCliente = new javax.swing.JButton();
+        btnRemoverProfessor = new javax.swing.JButton();
         btnAlterarProfessor = new javax.swing.JButton();
         btnBuscarProfessor = new javax.swing.JButton();
         cbxfiltro = new javax.swing.JComboBox();
@@ -87,13 +87,13 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblProfessores);
 
-        btnRemoverCliente.setBackground(new java.awt.Color(98, 155, 88));
-        btnRemoverCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnRemoverCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon_remove.fw.png"))); // NOI18N
-        btnRemoverCliente.setText("  Remover");
-        btnRemoverCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnRemoverProfessor.setBackground(new java.awt.Color(98, 155, 88));
+        btnRemoverProfessor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnRemoverProfessor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon_remove.fw.png"))); // NOI18N
+        btnRemoverProfessor.setText("  Remover");
+        btnRemoverProfessor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoverClienteActionPerformed(evt);
+                btnRemoverProfessorActionPerformed(evt);
             }
         });
 
@@ -137,7 +137,7 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRemoverCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRemoverProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAlterarProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBuscarProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -158,8 +158,8 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
                         .addGap(51, 51, 51)
                         .addComponent(btnAlterarProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
-                        .addComponent(btnRemoverCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(btnRemoverProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -190,7 +190,7 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
         tblProfessores.setModel(model);
     }
     
-    private void btnRemoverClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverClienteActionPerformed
+    private void btnRemoverProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProfessorActionPerformed
         // TODO add your handling code here:
         if (tblProfessores.getSelectedRow() >=0){
         
@@ -229,7 +229,7 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Selecione um professor por favor!");
         }
-    }//GEN-LAST:event_btnRemoverClienteActionPerformed
+    }//GEN-LAST:event_btnRemoverProfessorActionPerformed
 
     private void btnAlterarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProfessorActionPerformed
         // TODO add your handling code here:
@@ -304,7 +304,7 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarProfessor;
     private javax.swing.JButton btnBuscarProfessor;
-    private javax.swing.JButton btnRemoverCliente;
+    private javax.swing.JButton btnRemoverProfessor;
     private javax.swing.JComboBox cbxfiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblProfessores;

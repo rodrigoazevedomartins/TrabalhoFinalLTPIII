@@ -36,7 +36,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btnRemoverCliente" max="32767" attributes="0"/>
+                  <Component id="btnRemoverProfessor" max="32767" attributes="0"/>
                   <Component id="btnAlterarProfessor" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnBuscarProfessor" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
               </Group>
@@ -62,10 +62,10 @@
                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                       <Component id="btnAlterarProfessor" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="btnRemoverCliente" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="btnRemoverProfessor" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace pref="32" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -131,7 +131,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnRemoverCliente">
+    <Component class="javax.swing.JButton" name="btnRemoverProfessor">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="58" green="9b" red="62" type="rgb"/>
@@ -145,7 +145,7 @@
         <Property name="text" type="java.lang.String" value="  Remover"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoverClienteActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoverProfessorActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAlterarProfessor">

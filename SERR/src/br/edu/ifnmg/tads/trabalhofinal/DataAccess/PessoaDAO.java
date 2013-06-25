@@ -36,7 +36,6 @@ public class PessoaDAO {
                 ResultSet resultado = comando.executeQuery();
                 resultado.first();
                 codpessoa = (resultado.getInt("codpessoa"));
-                System.out.println(codpessoa);
                 
             } catch (SQLException ex) {
                 Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);

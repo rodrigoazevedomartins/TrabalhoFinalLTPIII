@@ -69,9 +69,26 @@ public class UsuarioDAO {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-        
-        
-        
+    }
+    
+    public int VerificaUsuario(int cod){
+        try {
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("select * from usuarios where codfuncionario = ? and ativo = 1");
+            comando.setInt(1, cod);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.first()){
+                Usuario usuario = new Usuario();
+                usuario.setCodusuario(resultado.getInt("codusuario"));
+                return usuario.getCodusuario();
+            } else {
+                return 0;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
     }
     
     public Usuario Abrir(int cod){
@@ -96,7 +113,7 @@ public class UsuarioDAO {
     public boolean Apagar(int cod){
         try {
             PreparedStatement comando = bd.getConexao().
-                    prepareStatement("update usuarios ativo = 0 where codusuario = ?");
+                    prepareStatement("update usuarios set ativo = 0 where codusuario = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;
