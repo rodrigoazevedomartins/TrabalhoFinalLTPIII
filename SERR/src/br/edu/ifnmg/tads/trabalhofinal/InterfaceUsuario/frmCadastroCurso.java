@@ -216,7 +216,7 @@ public class frmCadastroCurso extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelar)
                     .addComponent(btnCadastrar))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -229,11 +229,10 @@ public class frmCadastroCurso extends javax.swing.JInternalFrame {
         model.addColumn("Ementa");
         for (Disciplina d : curso.getDisciplinas()) {
             Vector v = new Vector();
-            v.add(d.getNome());
+            v.add(d);
             v.add(d.getEmenta());
             model.addRow(v);
         }
-
         tblCursos.setModel(model);
     }
 
@@ -295,8 +294,8 @@ public class frmCadastroCurso extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if(tblCursos.getSelectedRow() >= 0) {
             if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover esta Disciplina?") == 0){
-                Disciplina disciplinaselect = (Disciplina) tblCursos.getValueAt(tblCursos.getSelectedRow(), 1);
-                System.out.println(disciplinaselect);
+                Disciplina disciplinaselect = (Disciplina) tblCursos.getValueAt(tblCursos.getSelectedRow(), 0);
+                //System.out.println(disciplinaselect);
                 if(curso.getDisciplinas().contains(disciplinaselect)){
                    curso.removeDisciplina(disciplinaselect);
                 }

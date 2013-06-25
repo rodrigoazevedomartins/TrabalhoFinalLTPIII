@@ -53,17 +53,16 @@ public class DisciplinaDAO {
 
     }
 
-    public List<Disciplina> Abrir(int cod) {
+    public List<Disciplina> ListarDisciplina(int cod) {
         List<Disciplina> disciplinas = new LinkedList<>();
         try {
             PreparedStatement comando = bd.getConexao().
-                    prepareStatement("select * from disciplinas where coddisciplinas = ? and ativo = 1");
+                    prepareStatement("select * from disciplinas where codcurso = ? and ativo = 1");
             comando.setInt(1, cod);
             ResultSet resultado = comando.executeQuery();
             while (resultado.next()) {
                 Disciplina disc = new Disciplina();
                 Curso curso = new Curso();
-                
                 disc.setCoddisciplina(resultado.getInt("coddisciplina"));
                 disc.setNome(resultado.getString("nome"));
                 disc.setEmenta(resultado.getString("ementa"));

@@ -56,14 +56,15 @@ public class CursoDAO {
 
             } else {
                 PreparedStatement comando = bd.getConexao().
-                        prepareStatement("update cursos set nome = ? where codcurso = ?");
+                        prepareStatement("update cursos set nome = ?, duracao = ? where codcurso = ?");
                 comando.setString(1, curso.getNome());
                 comando.setInt(2, curso.getDuracao());
+                comando.setInt(3, curso.getCodcurso());
                 comando.executeUpdate();
             }
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(EmailDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CursoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
 
@@ -113,23 +114,20 @@ public class CursoDAO {
         }
     }
 
-    public List<Curso> Abrir(int cod) {
-        List<Curso> cursos = new LinkedList<>();
+    public Curso Abrir(int cod) {
         try {
             PreparedStatement comando = bd.getConexao().
-                    prepareStatement("select * from cursos where codcurso = ? and ativo = 1");
+                    prepareStatement("select * from cursos where codcurso = ?");
             comando.setInt(1, cod);
             ResultSet resultado = comando.executeQuery();
-            while (resultado.next()) {
+            resultado.first();
                 Curso curso = new Curso();
                 curso.setCodcurso(resultado.getInt("codcurso"));
                 curso.setNome(resultado.getString("nome"));
                 curso.setDuracao(resultado.getInt("duracao"));
-                cursos.add(curso);
-            }
-            return cursos;
+            return curso;
         } catch (SQLException ex) {
-            Logger.getLogger(EmailDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CursoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }

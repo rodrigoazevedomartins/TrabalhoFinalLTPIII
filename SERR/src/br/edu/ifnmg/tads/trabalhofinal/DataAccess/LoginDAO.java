@@ -25,12 +25,11 @@ public class LoginDAO {
     public int Login(Usuario usuario){
         try {
             PreparedStatement comando = bd.getConexao().
-                    prepareStatement("select * from usuarios where login = ? and senha = ? and ativo = 1");
+                    prepareStatement("select * from usuarios where login = ? and senha = md5(?) and ativo = 1");
             comando.setString(1, usuario.getLogin());
             comando.setString(2, usuario.getSenha());
             ResultSet resultado = comando.executeQuery();
             if(resultado.first()){
-                //resultado.first();
                 Usuario usuariologado = new Usuario();
                 usuariologado.setCodusuario(resultado.getInt("codusuario"));
                 return usuariologado.getCodusuario();
@@ -40,9 +39,6 @@ public class LoginDAO {
         } catch (SQLException ex) {
             Logger.getLogger(LoginDAO.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
-        }
-        
+        }   
     }
-    
-    
 }
