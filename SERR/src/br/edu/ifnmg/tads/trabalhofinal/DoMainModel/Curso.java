@@ -95,4 +95,10 @@ public class Curso {
     public String toString() {
         return nome;
     }    
+
+    public void addDisc(Disciplina disc) {
+        if(!disciplinas.contains(disc)){
+            disciplinas.add(disc);
+        }
+    }
 }

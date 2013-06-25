@@ -25,7 +25,7 @@ public class LoginDAO {
     public int Login(Usuario usuario){
         try {
             PreparedStatement comando = bd.getConexao().
-                    prepareStatement("select * from usuarios where login = ? and senha = md5(?) and ativo = 1");
+                    prepareStatement("select * from usuarios where login = ? and senha = ? and ativo = 1");
             comando.setString(1, usuario.getLogin());
             comando.setString(2, usuario.getSenha());
             ResultSet resultado = comando.executeQuery();

@@ -29,12 +29,11 @@ public class DisciplinaDAO {
         try {
             if (disciplina.getCoddisciplina() == 0) {
                 PreparedStatement comando = bd.getConexao().
-                        prepareStatement("insert into disciplinas(coddisciplina, nome, ementa, codcurso, ativo) values(?, ?, ?, ?, ?)");
-                comando.setInt(1, disciplina.getCoddisciplina());
-                comando.setString(2, disciplina.getNome());
-                comando.setString(3, disciplina.getEmenta());
-                comando.setInt(4, 0);
-                comando.setInt(5, 1);
+                        prepareStatement("insert into disciplinas(nome, ementa, codcurso, ativo) values(?, ?, ?, ?)");
+                comando.setString(1, disciplina.getNome());
+                comando.setString(2, disciplina.getEmenta());
+                comando.setInt(3, disciplina.getCurso().getCodcurso());
+                comando.setInt(4, 1);
                 comando.executeUpdate();
 
             } else {
