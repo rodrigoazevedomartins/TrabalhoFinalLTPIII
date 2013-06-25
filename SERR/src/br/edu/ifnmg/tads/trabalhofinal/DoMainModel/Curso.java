@@ -65,6 +65,18 @@ public class Curso {
         this.disciplinas = disciplinas;
     }
 
+    public void addDisc(Disciplina disc) {
+        if(!disciplinas.contains(disc)){
+            disciplinas.add(disc);
+        }
+    }
+    
+    public void removeDisciplina(Disciplina disc) {
+        if(disciplinas.contains(disc)){
+            disciplinas.remove(disc);
+        }
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -96,9 +108,7 @@ public class Curso {
         return nome;
     }    
 
-    public void addDisc(Disciplina disc) {
-        if(!disciplinas.contains(disc)){
-            disciplinas.add(disc);
-        }
-    }
+    
+
+    
 }

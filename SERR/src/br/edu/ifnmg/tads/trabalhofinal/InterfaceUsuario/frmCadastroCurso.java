@@ -119,6 +119,11 @@ public class frmCadastroCurso extends javax.swing.JInternalFrame {
         });
 
         btnDel.setText("Del");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
 
         tblCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -211,7 +216,7 @@ public class frmCadastroCurso extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelar)
                     .addComponent(btnCadastrar))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -285,6 +290,26 @@ public class frmCadastroCurso extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        // TODO add your handling code here:
+        if(tblCursos.getSelectedRow() >= 0) {
+            if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover esta Disciplina?") == 0){
+                Disciplina disciplinaselect = (Disciplina) tblCursos.getValueAt(tblCursos.getSelectedRow(), 1);
+                System.out.println(disciplinaselect);
+                if(curso.getDisciplinas().contains(disciplinaselect)){
+                   curso.removeDisciplina(disciplinaselect);
+                }
+                JOptionPane.showMessageDialog(RootPane, "Disciplina removida com sucesso!");
+                adicionadiscitable();
+                LimpaCampos();
+            } else {
+            JOptionPane.showMessageDialog(RootPane, "Selecione um email por favor!");
+            }
+        }
+        
+    }//GEN-LAST:event_btnDelActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCadastrar;

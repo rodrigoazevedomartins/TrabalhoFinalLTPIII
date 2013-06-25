@@ -58,6 +58,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         MenuFuncionarios = new javax.swing.JMenu();
         MenuListaFuncionarios = new javax.swing.JMenuItem();
         MenuCadFuncionario = new javax.swing.JMenuItem();
+        MenuCursos = new javax.swing.JMenu();
+        MenuCadCurso = new javax.swing.JMenuItem();
+        MenuCadList = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(20, 20));
@@ -112,6 +115,26 @@ public class frmPrincipal extends javax.swing.JFrame {
         MenuFuncionarios.add(MenuCadFuncionario);
 
         jMenuBar1.add(MenuFuncionarios);
+
+        MenuCursos.setText("Cursos");
+
+        MenuCadCurso.setText("Cadastro Curso");
+        MenuCadCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadCursoActionPerformed(evt);
+            }
+        });
+        MenuCursos.add(MenuCadCurso);
+
+        MenuCadList.setText("Listar Cursos");
+        MenuCadList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadListActionPerformed(evt);
+            }
+        });
+        MenuCursos.add(MenuCadList);
+
+        jMenuBar1.add(MenuCursos);
 
         setJMenuBar(jMenuBar1);
 
@@ -180,6 +203,20 @@ public class frmPrincipal extends javax.swing.JFrame {
         janela.setVisible(true);
     }//GEN-LAST:event_MenuCadFuncionarioActionPerformed
 
+    private void MenuCadCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadCursoActionPerformed
+        // TODO add your handling code here:
+        frmCadastroCurso janela = new frmCadastroCurso();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_MenuCadCursoActionPerformed
+
+    private void MenuCadListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadListActionPerformed
+        // TODO add your handling code here:
+        frmListaCurso janela = new frmListaCurso();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_MenuCadListActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -215,8 +252,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuCadCurso;
     private javax.swing.JMenuItem MenuCadFuncionario;
+    private javax.swing.JMenuItem MenuCadList;
     private javax.swing.JMenuItem MenuCadProfessor;
+    private javax.swing.JMenu MenuCursos;
     private javax.swing.JMenu MenuFuncionarios;
     private javax.swing.JMenuItem MenuListaFuncionarios;
     private javax.swing.JMenuItem MenuListaProfessores;
