@@ -41,7 +41,6 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnVoltar = new javax.swing.JButton();
         cbxfiltro = new javax.swing.JComboBox();
         txtFiltro = new javax.swing.JTextField();
         btnBusca = new javax.swing.JButton();
@@ -53,13 +52,6 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setTitle("Lista de Cursos");
-
-        btnVoltar.setText("Voltar");
-        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarActionPerformed(evt);
-            }
-        });
 
         cbxfiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Código", "Nome", "Duração" }));
 
@@ -97,21 +89,17 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(33, Short.MAX_VALUE)
-                        .addComponent(txtFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(txtFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnBusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRemove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRemove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
@@ -127,11 +115,9 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRemove)
-                        .addGap(122, 122, 122)
-                        .addComponent(btnVoltar))
+                        .addComponent(btnRemove))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,12 +126,14 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
     private void adicionacursotable(List<Curso> cursos) {
 
         DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Código");
         model.addColumn("Nome");
         model.addColumn("Duracao");
         for (Curso c : cursos) {
             Vector v = new Vector();
-            v.add(0, c.getNome());
-            v.add(1, c.getDuracao());
+            v.add(0, c.getCodcurso());
+            v.add(1, c);
+            v.add(2, c.getDuracao());
             model.addRow(v);
         }
         tblCursos.setModel(model);
@@ -164,19 +152,15 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
         
         if (cursodao.Apagar(curso.getCodcurso())){        
            cursos.remove(curso);
-           JOptionPane.showMessageDialog(rootPane, "Forma de Pagamento Removida com sucesso!");
+           JOptionPane.showMessageDialog(rootPane, "Curso Removido com Sucesso!");
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Ação cancelada");
+            JOptionPane.showMessageDialog(rootPane, "Ação Cancelada!");
         }
         
         adicionacursotable(cursos);
                 
     }//GEN-LAST:event_btnRemoveActionPerformed
-
-    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
         // TODO add your handling code here:
@@ -190,7 +174,7 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
                 curso.setNome(txtFiltro.getText());
             }
             
-            if (cbxfiltro.getSelectedIndex() == 1){
+            if (cbxfiltro.getSelectedIndex() == 2){
                 curso.setDuracao(Integer.parseInt(txtFiltro.getText()));
             }
 
@@ -208,7 +192,6 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnBusca;
     private javax.swing.JButton btnRemove;
-    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox cbxfiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCursos;
