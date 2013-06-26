@@ -4,6 +4,10 @@
  */
 package br.edu.ifnmg.tads.trabalhofinal.InterfaceUsuario;
 
+import br.edu.ifnmg.tads.trabalhofinal.DataAccess.BD;
+import br.edu.ifnmg.tads.trabalhofinal.DataAccess.TiporecursoDAO;
+import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.TipoRecurso;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,13 +15,17 @@ import javax.swing.JOptionPane;
  * @author Mauro
  */
 public class frmCadTipoRecurso extends javax.swing.JInternalFrame {
-    //private Component RootPane;
-
+    private Component RootPane;
+    private BD bd;
+    private TipoRecurso tiporecurso;
+    private TiporecursoDAO tiporecursodao;
+    
     /**
      * Creates new form frmCadTipoRecurso
      */
     public frmCadTipoRecurso() {
         initComponents();
+        tiporecursodao = new TiporecursoDAO();
     }
 
     /**
@@ -29,60 +37,17 @@ public class frmCadTipoRecurso extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tbdTipoRecurso = new javax.swing.JTabbedPane();
-        PanelDadosGerais = new javax.swing.JPanel();
-        txtNome = new javax.swing.JTextField();
-        lblNome = new javax.swing.JLabel();
-        txtDescricao = new javax.swing.JTextField();
-        lblDescricao = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
+        lblDescricao1 = new javax.swing.JLabel();
+        lblNome1 = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescricao = new javax.swing.JTextArea();
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setTitle("Cadastrar Tipo Recurso");
-
-        PanelDadosGerais.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-
-        lblNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblNome.setText("NOME:");
-
-        lblDescricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblDescricao.setText("DESCRIÇÃO:");
-
-        javax.swing.GroupLayout PanelDadosGeraisLayout = new javax.swing.GroupLayout(PanelDadosGerais);
-        PanelDadosGerais.setLayout(PanelDadosGeraisLayout);
-        PanelDadosGeraisLayout.setHorizontalGroup(
-            PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDadosGeraisLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
-        );
-        PanelDadosGeraisLayout.setVerticalGroup(
-            PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(291, 291, 291))
-        );
-
-        tbdTipoRecurso.addTab("Dados Gerais", PanelDadosGerais);
 
         btnCancelar.setBackground(new java.awt.Color(183, 70, 53));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -104,30 +69,61 @@ public class frmCadTipoRecurso extends javax.swing.JInternalFrame {
             }
         });
 
+        lblDescricao1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblDescricao1.setText("DESCRIÇÃO:");
+
+        lblNome1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblNome1.setText("NOME:");
+
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
+
+        txtDescricao.setColumns(20);
+        txtDescricao.setRows(5);
+        jScrollPane1.setViewportView(txtDescricao);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tbdTipoRecurso, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(160, Short.MAX_VALUE)
                 .addComponent(btnCadastrar)
-                .addGap(94, 94, 94)
+                .addGap(270, 270, 270)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(298, 298, 298))
+                .addGap(122, 122, 122))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblDescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtNome)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tbdTipoRecurso, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(93, 93, 93)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -136,22 +132,38 @@ public class frmCadTipoRecurso extends javax.swing.JInternalFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Cadastrar o Tipo Recurso?") == 0){
+            tiporecurso = new TipoRecurso();
+            tiporecurso.setNome(txtNome.getText());
+            tiporecurso.setDescricao(txtDescricao.getText());
+            if (tiporecursodao.Salvar(tiporecurso)){
+                JOptionPane.showMessageDialog(RootPane, "Tipo Recurso Cadastado com Sucesso!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado!");
+        }
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Cancelar o Cadastro?") == 0){
+            this.dispose();
+        }
         
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PanelDadosGerais;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JLabel lblDescricao;
-    private javax.swing.JLabel lblNome;
-    private javax.swing.JTabbedPane tbdTipoRecurso;
-    private javax.swing.JTextField txtDescricao;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDescricao1;
+    private javax.swing.JLabel lblNome1;
+    private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }
