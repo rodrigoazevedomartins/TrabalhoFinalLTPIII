@@ -47,4 +47,22 @@ public class MedidaTempoDAO {
         }
     }
     
+    public MedidaTempo Abrir(int cod){
+        try {
+            
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("select * from medidatempo where codmedidatempo = ?"); 
+            comando.setInt(1, cod);
+            ResultSet resultado = comando.executeQuery();
+            resultado.first();
+                MedidaTempo medidatempo = new MedidaTempo();
+                medidatempo.setCodtempomaximo(resultado.getInt("codmedidatempo"));
+                medidatempo.setMedidatempomaximo(resultado.getString("medida"));
+            return medidatempo;
+        } catch (SQLException ex) {
+            Logger.getLogger(MedidaTempoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
 }
