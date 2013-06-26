@@ -75,12 +75,6 @@ public class frmCadTipoRecurso extends javax.swing.JInternalFrame {
         lblNome1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblNome1.setText("NOME:");
 
-        txtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeActionPerformed(evt);
-            }
-        });
-
         txtDescricao.setColumns(20);
         txtDescricao.setRows(5);
         jScrollPane1.setViewportView(txtDescricao);
@@ -152,10 +146,6 @@ public class frmCadTipoRecurso extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
