@@ -240,7 +240,7 @@ public class frmCadReserva extends javax.swing.JInternalFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Cadastrar o Recurso?") == 0){
+       /* if (JOptionPane.showConfirmDialog(rootPane, "Deseja Cadastrar o Recurso?") == 0){
             recurso = new Recurso();
             medidatempo = new MedidaTempo();
             tiporecurso = new TipoRecurso();
@@ -262,20 +262,20 @@ public class frmCadReserva extends javax.swing.JInternalFrame {
 
         } else {
             JOptionPane.showMessageDialog(rootPane, "Cadastro Cancelado!");
-        }
+        }*/
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Cancelar o Cadastro?") == 0){
+       /* if (JOptionPane.showConfirmDialog(rootPane, "Deseja Cancelar o Cadastro?") == 0){
             JOptionPane.showMessageDialog(rootPane, "Cadastro Cancelado!");
             this.dispose();
-        }
+        }*/
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAdicionarRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarRecursoActionPerformed
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar endereco?") == 0){
+       /* if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar endereco?") == 0){
             Endereco endereco = new Endereco();
             endereco.setRua(txtRua.getText());
             endereco.setNumero(Integer.parseInt(txtNumero.getText()));
@@ -296,13 +296,13 @@ public class frmCadReserva extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(RootPane, "Endereço adicionado com sucesso!");
             }
 
-        }
+        }*/
     }//GEN-LAST:event_btnAdicionarRecursoActionPerformed
 
     private void btnRemoverRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverRecursoActionPerformed
         // TODO add your handling code here:
 
-        if (tblenderecos.getSelectedRow() >= 0){
+       /* if (tblenderecos.getSelectedRow() >= 0){
 
             if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este endereço?") == 0){
                 Endereco enderecoselect = (Endereco) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 1);
@@ -317,7 +317,7 @@ public class frmCadReserva extends javax.swing.JInternalFrame {
             }
         } else {
             JOptionPane.showMessageDialog(RootPane, "Selecione um endereço por favor!");
-        }
+        }*/
     }//GEN-LAST:event_btnRemoverRecursoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
