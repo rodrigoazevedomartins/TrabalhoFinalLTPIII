@@ -4,17 +4,30 @@
  */
 package br.edu.ifnmg.tads.trabalhofinal.InterfaceUsuario;
 
+import br.edu.ifnmg.tads.trabalhofinal.DataAccess.TiporecursoDAO;
+import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.TipoRecurso;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mauro
  */
 public class frmEditarTiporecurso extends javax.swing.JInternalFrame {
-
+    
+    private TiporecursoDAO tiporecursodao;
+    private TipoRecurso tiporecurso;
+    private Component RootPane;
     /**
      * Creates new form frmEditarTiporecurso
      */
     public frmEditarTiporecurso(int cod) {
         initComponents();
+        tiporecursodao = new TiporecursoDAO();
+        tiporecurso = tiporecursodao.Abrir(cod);
+        
+        txtNome.setText(tiporecurso.getNome());
+        txtDescricao.setText(tiporecurso.getDescricao());
     }
 
     /**
@@ -26,18 +39,27 @@ public class frmEditarTiporecurso extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblNome = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescricao = new javax.swing.JTextArea();
+        lblDescricao = new javax.swing.JLabel();
         btnAtualizar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        lblNome1 = new javax.swing.JLabel();
-        txtNome1 = new javax.swing.JTextField();
-        lblDescricao1 = new javax.swing.JLabel();
-        txtDescricao1 = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
-        setTitle("Editar Tipo Recurso");
+        setTitle("Editar Tipo de Recurso");
+
+        lblNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblNome.setText("NOME:");
+
+        txtDescricao.setColumns(20);
+        txtDescricao.setRows(5);
+        jScrollPane1.setViewportView(txtDescricao);
+
+        lblDescricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblDescricao.setText("DESCRIÇÃO:");
 
         btnAtualizar.setBackground(new java.awt.Color(98, 155, 88));
         btnAtualizar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -59,52 +81,48 @@ public class frmEditarTiporecurso extends javax.swing.JInternalFrame {
             }
         });
 
-        lblNome1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblNome1.setText("NOME:");
-
-        lblDescricao1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblDescricao1.setText("DESCRIÇÃO:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAtualizar)
+                        .addGap(270, 270, 270)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDescricao1)
-                        .addGap(22, 22, 22))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(btnAtualizar)
-                            .addGap(94, 94, 94)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(144, 144, 144))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(lblNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(22, 22, 22)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtNome)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(39, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(93, 93, 93)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(87, 87, 87)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -112,20 +130,37 @@ public class frmEditarTiporecurso extends javax.swing.JInternalFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Atualizar o Tipo de Recurso?") == 0){
+            tiporecurso.setNome(txtNome.getText());
+            tiporecurso.setDescricao(txtDescricao.getText());
+            
+            if (tiporecursodao.Salvar(tiporecurso)){
+                JOptionPane.showMessageDialog(RootPane, "Tipo de Recurso Atualizado com Sucesso!");
+            }
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(RootPane, "Atualização Cancelada!");
+        
+        }
 
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Cancelar o Cadastro?") == 0){
+            this.dispose();
+        }
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JLabel lblDescricao1;
-    private javax.swing.JLabel lblNome1;
-    private javax.swing.JTextField txtDescricao1;
-    private javax.swing.JTextField txtNome1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JTextArea txtDescricao;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

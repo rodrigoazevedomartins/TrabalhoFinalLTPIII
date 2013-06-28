@@ -39,15 +39,15 @@ public class frmCadTipoRecurso extends javax.swing.JInternalFrame {
 
         btnCancelar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
-        lblDescricao1 = new javax.swing.JLabel();
-        lblNome1 = new javax.swing.JLabel();
+        lblDescricao = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescricao = new javax.swing.JTextArea();
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Cadastrar Tipo Recurso");
+        setTitle("Cadastrar Tipo de Recurso");
 
         btnCancelar.setBackground(new java.awt.Color(183, 70, 53));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -69,11 +69,11 @@ public class frmCadTipoRecurso extends javax.swing.JInternalFrame {
             }
         });
 
-        lblDescricao1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblDescricao1.setText("DESCRIÇÃO:");
+        lblDescricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblDescricao.setText("DESCRIÇÃO:");
 
-        lblNome1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblNome1.setText("NOME:");
+        lblNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblNome.setText("NOME:");
 
         txtDescricao.setColumns(20);
         txtDescricao.setRows(5);
@@ -93,10 +93,10 @@ public class frmCadTipoRecurso extends javax.swing.JInternalFrame {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblDescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtNome)
@@ -108,17 +108,17 @@ public class frmCadTipoRecurso extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(93, 93, 93)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -151,8 +151,8 @@ public class frmCadTipoRecurso extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblDescricao1;
-    private javax.swing.JLabel lblNome1;
+    private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblNome;
     private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables

@@ -32,27 +32,29 @@ public class RecursoDAO {
         try {
             if (recurso.getCodrecurso() == 0) {
                 PreparedStatement comando = bd.getConexao().
-                        prepareStatement("insert into recursos(nome, num_patrimonio, capacidade, tempomaximo, "
-                        + "codmedidatempo, codtiporecurso, ativo) values(?,?,?,?,?,?,?)");
+                        prepareStatement("insert into recursos(nome, descricao, num_patrimonio, capacidade, tempomaximo, "
+                        + "codmedidatempo, codtiporecurso, ativo) values(?,?,?,?,?,?,?,?)");
                 comando.setString(1, recurso.getNome());
-                comando.setInt(2, recurso.getNum_patrimonio());
-                comando.setInt(3, recurso.getCapacidade());
-                comando.setInt(4, recurso.getTempo());
-                comando.setInt(5, recurso.getMedidatempo().getCodtempomaximo());
-                comando.setInt(6, recurso.getTiporecurso().getCodtiporecurso());
-                comando.setInt(7, 1);
+                comando.setString(2, recurso.getDescricao());
+                comando.setInt(3, recurso.getNum_patrimonio());
+                comando.setInt(4, recurso.getCapacidade());
+                comando.setInt(5, recurso.getTempo());
+                comando.setInt(6, recurso.getMedidatempo().getCodtempomaximo());
+                comando.setInt(7, recurso.getTiporecurso().getCodtiporecurso());
+                comando.setInt(8, 1);
                 comando.executeUpdate();
             } else {
                 PreparedStatement comando = bd.getConexao().
-                        prepareStatement("update recursos set nome = ?, num_patrimonio = ?, capacidade = ?, "
+                        prepareStatement("update recursos set nome = ?, descricao = ?, num_patrimonio = ?, capacidade = ?, "
                         + "tempomaximo = ?, codmedidatempo = ?, codtiporecurso = ? where codrecurso = ?");
                 comando.setString(1, recurso.getNome());
-                comando.setInt(2, recurso.getNum_patrimonio());
-                comando.setInt(3, recurso.getCapacidade());
-                comando.setInt(4, recurso.getTempo());
-                comando.setInt(5, recurso.getMedidatempo().getCodtempomaximo());
-                comando.setInt(6, recurso.getTiporecurso().getCodtiporecurso());
-                comando.setInt(7, recurso.getCodrecurso());
+                comando.setString(2, recurso.getDescricao());
+                comando.setInt(3, recurso.getNum_patrimonio());
+                comando.setInt(4, recurso.getCapacidade());
+                comando.setInt(5, recurso.getTempo());
+                comando.setInt(6, recurso.getMedidatempo().getCodtempomaximo());
+                comando.setInt(7, recurso.getTiporecurso().getCodtiporecurso());
+                comando.setInt(8, recurso.getCodrecurso());
                 comando.executeUpdate();
             }
             return true;
@@ -72,6 +74,14 @@ public class RecursoDAO {
             
             if (filtro.getCodrecurso() > 0){
                 where = "codrecurso = " + filtro.getCodrecurso();
+            }
+            
+            if (filtro.getNome().length() > 0){
+                where = "nome like '%" + filtro.getNome() + "%'";
+            }
+            
+            if (filtro.getDescricao().length() > 0){
+                where = "descricao like '%" + filtro.getDescricao() + "%'";
             }
             
             if (filtro.getNum_patrimonio() > 0){
@@ -106,6 +116,7 @@ public class RecursoDAO {
                 MedidaTempo tempomaximo = new MedidaTempo();
                 recurso.setCodrecurso(resultado.getInt("codrecurso"));
                 recurso.setNome(resultado.getString("nome"));
+                recurso.setDescricao(resultado.getString("descricao"));
                 recurso.setNum_patrimonio(resultado.getInt("num_patrimonio"));
                 recurso.setCapacidade(resultado.getInt("capacidade"));
                 recurso.setTempo(resultado.getInt("tempomaximo"));
@@ -134,6 +145,7 @@ public class RecursoDAO {
                 MedidaTempo tempomaximo = new MedidaTempo();
                 recurso.setCodrecurso(resultado.getInt("codrecurso"));
                 recurso.setNome(resultado.getString("nome"));
+                recurso.setDescricao(resultado.getString("descricao"));
                 recurso.setNum_patrimonio(resultado.getInt("num_patrimonio"));
                 recurso.setCapacidade(resultado.getInt("capacidade"));
                 recurso.setTempo(resultado.getInt("tempomaximo"));
@@ -161,6 +173,7 @@ public class RecursoDAO {
             MedidaTempo tempomaximo = new MedidaTempo();
             recurso.setCodrecurso(resultado.getInt("codrecurso"));
             recurso.setNome(resultado.getString("nome"));
+            recurso.setDescricao(resultado.getString("descricao"));
             recurso.setNum_patrimonio(resultado.getInt("num_patrimonio"));
             recurso.setCapacidade(resultado.getInt("capacidade"));
             recurso.setTempo(resultado.getInt("tempomaximo"));

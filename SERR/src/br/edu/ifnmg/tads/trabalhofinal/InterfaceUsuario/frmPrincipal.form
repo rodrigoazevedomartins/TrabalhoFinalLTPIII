@@ -14,20 +14,20 @@
             <Property name="text" type="java.lang.String" value="Professores"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuListaProfessores">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Listar Professores"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuListaProfessoresActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuCadProfessor">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastrar Professor"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuCadProfessorActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuListaProfessores">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar Professores"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuListaProfessoresActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -37,20 +37,20 @@
             <Property name="text" type="java.lang.String" value="Funcion&#xe1;rios"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuListaFuncionarios">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lista Funcion&#xe1;rios"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuListaFuncionariosActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuCadFuncionario">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastrar Funcionario"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuCadFuncionarioActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuListaFuncionarios">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar Funcion&#xe1;rios"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuListaFuncionariosActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -74,6 +74,45 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuCadListActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="MenuRecursos">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Recursos"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuCadRecurso">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cadastrar Recurso"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuCadRecursoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuCadTipoRecurso">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cadastrar Tipo de Recurso"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuCadTipoRecursoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuListaRecurso">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lista de Recursos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuListaRecursoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuListaTipoRecurso">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lista de Tipos de Recurso"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuListaTipoRecursoActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

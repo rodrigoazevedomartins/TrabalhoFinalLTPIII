@@ -43,6 +43,7 @@ public class TiporecursoDAO {
                         prepareStatement("update tiposrecurso set nome = ?, descricao = ? where codtiporecurso = ?");
                 comando.setString(1, tiporecurso.getNome());
                 comando.setString(2, tiporecurso.getDescricao());
+                comando.setInt(3, tiporecurso.getCodtiporecurso());
                 comando.executeUpdate();
             }
             return true;

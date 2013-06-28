@@ -4,17 +4,67 @@
  */
 package br.edu.ifnmg.tads.trabalhofinal.InterfaceUsuario;
 
+import br.edu.ifnmg.tads.trabalhofinal.DataAccess.MedidaTempoDAO;
+import br.edu.ifnmg.tads.trabalhofinal.DataAccess.RecursoDAO;
+import br.edu.ifnmg.tads.trabalhofinal.DataAccess.TiporecursoDAO;
+import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.MedidaTempo;
+import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Recurso;
+import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.TipoRecurso;
+import com.sun.media.sound.MidiUtils;
+import java.awt.Component;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mauro
  */
 public class frmEditarRecurso extends javax.swing.JInternalFrame {
-
+     private Component RootPane;
+    private Recurso recurso;
+    private RecursoDAO recursodao;
+    private MedidaTempo medidatempo;
+    private MedidaTempoDAO medidatempodao;
+    private TipoRecurso tiporecurso;
+    private TiporecursoDAO tiporecursodao;
+    private List<TipoRecurso> tiposrecurso;
+    private List<MedidaTempo> medidastempo;
+    
     /**
      * Creates new form frmEditarRecurso
      */
     public frmEditarRecurso(int cod) {
         initComponents();
+        recursodao = new RecursoDAO();
+        medidatempodao = new MedidaTempoDAO();
+        tiporecursodao = new TiporecursoDAO();
+               
+        recurso = recursodao.Abrir(cod);
+        medidatempo = medidatempodao.Abrir(recurso.getMedidatempo().getCodtempomaximo());
+        tiporecurso = tiporecursodao.Abrir(recurso.getTiporecurso().getCodtiporecurso());
+        tiposrecurso = tiporecursodao.ListarTodos();
+        medidastempo = medidatempodao.ListarTodos();
+        
+        cbxMedida.removeAllItems();
+        cbxMedida.addItem(medidatempo);
+        
+        for (MedidaTempo medida : medidastempo){
+            cbxMedida.addItem(medida);
+        }
+        
+        cbxTiporecurso.removeAllItems();
+        cbxTiporecurso.addItem(tiporecurso);
+        
+        for (TipoRecurso tipo : tiposrecurso){
+            cbxTiporecurso.addItem(tipo);
+        }
+        
+        txtNome.setText(recurso.getNome());
+        txtDescricao.setText(recurso.getDescricao());
+        txtCapacidade.setText(Integer.toString(recurso.getCapacidade()));
+        txtPatrimonio.setText(Integer.toString(recurso.getNum_patrimonio()));
+        txtTempo.setText(Integer.toString(recurso.getTempo()));
+        
     }
 
     /**
@@ -26,53 +76,27 @@ public class frmEditarRecurso extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnAtualizar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        lblDescricao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescricao = new javax.swing.JTextArea();
+        lblDescricao = new javax.swing.JLabel();
         lblPatrimonio = new javax.swing.JLabel();
         txtPatrimonio = new javax.swing.JTextField();
         lblCapacidade = new javax.swing.JLabel();
         txtCapacidade = new javax.swing.JTextField();
-        lblTempo = new javax.swing.JLabel();
-        txtTempo = new javax.swing.JTextField();
-        lblMedida = new javax.swing.JLabel();
-        cbxMedida = new javax.swing.JComboBox();
-        lblTiporecurso = new javax.swing.JLabel();
         cbxTiporecurso = new javax.swing.JComboBox();
-        btnAtualizar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        lblTiporecurso = new javax.swing.JLabel();
+        cbxMedida = new javax.swing.JComboBox();
+        lblMedida = new javax.swing.JLabel();
+        txtTempo = new javax.swing.JTextField();
+        lblTempo = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
         setTitle("Editar Recursos");
-
-        lblNome.setText("NOME:");
-
-        lblDescricao.setText("DESCRIÇÃO:");
-
-        txtDescricao.setColumns(20);
-        txtDescricao.setRows(5);
-        jScrollPane1.setViewportView(txtDescricao);
-
-        lblPatrimonio.setText("N° PATRIMÔNIO:");
-
-        lblCapacidade.setText("CAPACIDADE:");
-
-        txtCapacidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCapacidadeActionPerformed(evt);
-            }
-        });
-
-        lblTempo.setText("TEMPO:");
-
-        lblMedida.setText("MEDIDA:");
-
-        lblTiporecurso.setText("TIPO RECURSO:");
 
         btnAtualizar.setBackground(new java.awt.Color(98, 155, 88));
         btnAtualizar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -94,34 +118,41 @@ public class frmEditarRecurso extends javax.swing.JInternalFrame {
             }
         });
 
+        lblNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblNome.setText("NOME:");
+
+        txtDescricao.setColumns(20);
+        txtDescricao.setRows(5);
+        jScrollPane1.setViewportView(txtDescricao);
+
+        lblDescricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblDescricao.setText("DESCRIÇÃO:");
+
+        lblPatrimonio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblPatrimonio.setText("N° PATRIMÔNIO:");
+
+        lblCapacidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblCapacidade.setText("CAPACIDADE:");
+
+        lblTiporecurso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblTiporecurso.setText("TIPO RECURSO:");
+
+        lblMedida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblMedida.setText("MEDIDA:");
+
+        lblTempo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblTempo.setText("TEMPO:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNome))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblPatrimonio)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPatrimonio, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblCapacidade)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCapacidade))
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblTempo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -129,67 +160,99 @@ public class frmEditarRecurso extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(lblMedida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbxMedida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cbxMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(lblTiporecurso)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbxTiporecurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxTiporecurso, 0, 215, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblPatrimonio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14, 14, 14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtPatrimonio, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblCapacidade)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCapacidade))
+                                    .addComponent(jScrollPane1)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(btnAtualizar)
-                        .addGap(94, 94, 94)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72)
+                        .addComponent(txtNome)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(177, 177, 177)
+                .addComponent(btnAtualizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(130, 130, 130))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPatrimonio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPatrimonio, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtPatrimonio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbxMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTiporecurso, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxTiporecurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 21, Short.MAX_VALUE)
+                    .addComponent(cbxTiporecurso, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtCapacidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCapacidadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCapacidadeActionPerformed
-
+       
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Atualizar o Recurso?") == 0){
+            recurso.setNome(txtNome.getText());
+            recurso.setDescricao(txtDescricao.getText());
+            recurso.setNum_patrimonio(Integer.parseInt(txtPatrimonio.getText()));
+            recurso.setTempo(Integer.parseInt(txtTempo.getText()));
+            recurso.setCapacidade(Integer.parseInt(txtCapacidade.getText()));
+
+            recurso.setTiporecurso((TipoRecurso) cbxTiporecurso.getSelectedItem());
+            recurso.setMedidatempo((MedidaTempo) cbxMedida.getSelectedItem());
+
+            if (recursodao.Salvar(recurso)){
+                JOptionPane.showMessageDialog(RootPane, "Recurso Atualizado com Sucesso!");
+                this.dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(RootPane, "Atualização Cancelada!");
+        }
+        
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cancelar a Atualização?") == 0){
+            JOptionPane.showMessageDialog(RootPane, "Atualização Cancelada!");
+            this.dispose();
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

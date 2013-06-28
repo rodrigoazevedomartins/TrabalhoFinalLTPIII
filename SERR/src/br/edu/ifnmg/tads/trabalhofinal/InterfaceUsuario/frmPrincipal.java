@@ -53,14 +53,19 @@ public class frmPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuProfessores = new javax.swing.JMenu();
-        MenuListaProfessores = new javax.swing.JMenuItem();
         MenuCadProfessor = new javax.swing.JMenuItem();
+        MenuListaProfessores = new javax.swing.JMenuItem();
         MenuFuncionarios = new javax.swing.JMenu();
-        MenuListaFuncionarios = new javax.swing.JMenuItem();
         MenuCadFuncionario = new javax.swing.JMenuItem();
+        MenuListaFuncionarios = new javax.swing.JMenuItem();
         MenuCursos = new javax.swing.JMenu();
         MenuCadCurso = new javax.swing.JMenuItem();
         MenuCadList = new javax.swing.JMenuItem();
+        MenuRecursos = new javax.swing.JMenu();
+        MenuCadRecurso = new javax.swing.JMenuItem();
+        MenuCadTipoRecurso = new javax.swing.JMenuItem();
+        MenuListaRecurso = new javax.swing.JMenuItem();
+        MenuListaTipoRecurso = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(20, 20));
@@ -78,14 +83,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         MenuProfessores.setText("Professores");
 
-        MenuListaProfessores.setText("Listar Professores");
-        MenuListaProfessores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuListaProfessoresActionPerformed(evt);
-            }
-        });
-        MenuProfessores.add(MenuListaProfessores);
-
         MenuCadProfessor.setText("Cadastrar Professor");
         MenuCadProfessor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,17 +91,17 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         MenuProfessores.add(MenuCadProfessor);
 
+        MenuListaProfessores.setText("Listar Professores");
+        MenuListaProfessores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListaProfessoresActionPerformed(evt);
+            }
+        });
+        MenuProfessores.add(MenuListaProfessores);
+
         jMenuBar1.add(MenuProfessores);
 
         MenuFuncionarios.setText("Funcionários");
-
-        MenuListaFuncionarios.setText("Lista Funcionários");
-        MenuListaFuncionarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuListaFuncionariosActionPerformed(evt);
-            }
-        });
-        MenuFuncionarios.add(MenuListaFuncionarios);
 
         MenuCadFuncionario.setText("Cadastrar Funcionario");
         MenuCadFuncionario.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +110,14 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         MenuFuncionarios.add(MenuCadFuncionario);
+
+        MenuListaFuncionarios.setText("Listar Funcionários");
+        MenuListaFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListaFuncionariosActionPerformed(evt);
+            }
+        });
+        MenuFuncionarios.add(MenuListaFuncionarios);
 
         jMenuBar1.add(MenuFuncionarios);
 
@@ -135,6 +140,42 @@ public class frmPrincipal extends javax.swing.JFrame {
         MenuCursos.add(MenuCadList);
 
         jMenuBar1.add(MenuCursos);
+
+        MenuRecursos.setText("Recursos");
+
+        MenuCadRecurso.setText("Cadastrar Recurso");
+        MenuCadRecurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadRecursoActionPerformed(evt);
+            }
+        });
+        MenuRecursos.add(MenuCadRecurso);
+
+        MenuCadTipoRecurso.setText("Cadastrar Tipo de Recurso");
+        MenuCadTipoRecurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadTipoRecursoActionPerformed(evt);
+            }
+        });
+        MenuRecursos.add(MenuCadTipoRecurso);
+
+        MenuListaRecurso.setText("Lista de Recursos");
+        MenuListaRecurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListaRecursoActionPerformed(evt);
+            }
+        });
+        MenuRecursos.add(MenuListaRecurso);
+
+        MenuListaTipoRecurso.setText("Lista de Tipos de Recurso");
+        MenuListaTipoRecurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListaTipoRecursoActionPerformed(evt);
+            }
+        });
+        MenuRecursos.add(MenuListaTipoRecurso);
+
+        jMenuBar1.add(MenuRecursos);
 
         setJMenuBar(jMenuBar1);
 
@@ -217,6 +258,34 @@ public class frmPrincipal extends javax.swing.JFrame {
         janela.setVisible(true);
     }//GEN-LAST:event_MenuCadListActionPerformed
 
+    private void MenuListaTipoRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaTipoRecursoActionPerformed
+        // TODO add your handling code here:
+        frmListaTiporecurso janela = new frmListaTiporecurso();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_MenuListaTipoRecursoActionPerformed
+
+    private void MenuCadTipoRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadTipoRecursoActionPerformed
+        // TODO add your handling code here:
+        frmCadTipoRecurso janela = new frmCadTipoRecurso();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_MenuCadTipoRecursoActionPerformed
+
+    private void MenuListaRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaRecursoActionPerformed
+        // TODO add your handling code here:
+        frmCadRecursos janela = new frmCadRecursos();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_MenuListaRecursoActionPerformed
+
+    private void MenuCadRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadRecursoActionPerformed
+        // TODO add your handling code here:
+        frmListaRecursos janela = new frmListaRecursos();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_MenuCadRecursoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -256,11 +325,16 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuCadFuncionario;
     private javax.swing.JMenuItem MenuCadList;
     private javax.swing.JMenuItem MenuCadProfessor;
+    private javax.swing.JMenuItem MenuCadRecurso;
+    private javax.swing.JMenuItem MenuCadTipoRecurso;
     private javax.swing.JMenu MenuCursos;
     private javax.swing.JMenu MenuFuncionarios;
     private javax.swing.JMenuItem MenuListaFuncionarios;
     private javax.swing.JMenuItem MenuListaProfessores;
+    private javax.swing.JMenuItem MenuListaRecurso;
+    private javax.swing.JMenuItem MenuListaTipoRecurso;
     private javax.swing.JMenu MenuProfessores;
+    private javax.swing.JMenu MenuRecursos;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
