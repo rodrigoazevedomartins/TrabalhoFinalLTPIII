@@ -184,7 +184,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(659, Short.MAX_VALUE)
+                .addContainerGap(895, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -200,7 +200,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(36, 36, 36)
                 .addComponent(jLabel1)
-                .addContainerGap(320, Short.MAX_VALUE))
+                .addContainerGap(458, Short.MAX_VALUE))
         );
 
         pack();

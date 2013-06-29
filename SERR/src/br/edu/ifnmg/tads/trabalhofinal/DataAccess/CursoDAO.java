@@ -140,7 +140,7 @@ public class CursoDAO {
             ResultSet resultado = comando.executeQuery();
             while (resultado.next()) {
                 Curso curso = new Curso();
-                curso.setCodcurso(resultado.getInt("codCurso"));
+                curso.setCodcurso(resultado.getInt("codcurso"));
                 curso.setNome(resultado.getString("nome"));
                 curso.setDuracao(resultado.getInt("duracao"));
                 cursos.add(curso);

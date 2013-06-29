@@ -78,4 +78,16 @@ public class DisciplinaDAO {
         }
     }
     
+    public boolean Apagar(int cod){
+        try {
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("update disciplinas set ativo = 0 where coddisciplina = ?");
+            comando.setInt(1, cod);
+            comando.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 }
