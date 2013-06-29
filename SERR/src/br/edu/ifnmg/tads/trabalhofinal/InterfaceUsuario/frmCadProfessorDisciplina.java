@@ -12,8 +12,12 @@ import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Curso;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Disciplina;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Professor;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.ProfessorDisciplinas;
+import java.awt.Component;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,8 +31,11 @@ public class frmCadProfessorDisciplina extends javax.swing.JInternalFrame {
     private List<Disciplina> disciplinas;
     private DisciplinaDAO disciplinadao;
     private ProfessorDAO professordao;
-    private List<ProfessorDisciplinas> professordisciplina;
+    private List<ProfessorDisciplinas> professordisciplinas;
     private ProfessorDisciplinaDAO professordisciplinadao;
+    private Curso curso;
+    private Disciplina disciplina;
+    private Component RootPane;
 
     /**
      * Creates new form frmCadProfessorDisciplina
@@ -36,26 +43,28 @@ public class frmCadProfessorDisciplina extends javax.swing.JInternalFrame {
     public frmCadProfessorDisciplina(int cod) {
         initComponents();
 
+        cursos = new LinkedList<>();
         cursodao = new CursoDAO();
         disciplinadao = new DisciplinaDAO();
         professordao = new ProfessorDAO();
-        professordisciplina = new LinkedList<>();
+        professor = professordao.Abrir(cod);
         professordisciplinadao = new ProfessorDisciplinaDAO();
-
+        professordisciplinas = professordisciplinadao.ListarTodas(cod);
         cursos = cursodao.ListarTodos();
 
         cbxcurso.removeAllItems();
-        for (Curso curso : cursos) {
-            cbxcurso.addItem(curso);
+        for (Curso c : cursos) {
+            cbxcurso.addItem(c);
         }
-        
-        
+
+        curso = (Curso) cbxcurso.getItemAt(0);
         cbxdisciplina.removeAllItems();
-        for (Disciplina disciplina :  disciplinas){
+
+        for (Disciplina disciplina : disciplinadao.ListarDisciplina(curso.getCodcurso())) {
             cbxdisciplina.addItem(disciplina);
         }
-
-
+        
+        adicionadisciplinatable();
     }
 
     /**
@@ -79,16 +88,18 @@ public class frmCadProfessorDisciplina extends javax.swing.JInternalFrame {
         lblDuracao = new javax.swing.JLabel();
         lblTextoduracao = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
+        txtareaEmenta = new javax.swing.JTextArea();
         lblMeses = new javax.swing.JLabel();
+        txtSemestres = new javax.swing.JFormattedTextField();
 
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Disciplinas do Professor");
 
         lblCurso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblCurso.setText("SELECIONE O CURSO: ");
 
-        cbxcurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxcurso.setToolTipText("");
         cbxcurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxcursoActionPerformed(evt);
@@ -119,6 +130,11 @@ public class frmCadProfessorDisciplina extends javax.swing.JInternalFrame {
         lblDisciplina.setText("SELECIONE A DISCIPLINA:");
 
         jButton1.setText("Adicionar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         lblEmenta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblEmenta.setText("EMENTA DA DISCIPLINA:");
@@ -130,12 +146,14 @@ public class frmCadProfessorDisciplina extends javax.swing.JInternalFrame {
 
         lblTextoduracao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtareaEmenta.setColumns(20);
+        txtareaEmenta.setRows(5);
+        jScrollPane2.setViewportView(txtareaEmenta);
 
         lblMeses.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblMeses.setText("MESES");
+        lblMeses.setText("Semestres");
+
+        txtSemestres.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,8 +181,8 @@ public class frmCadProfessorDisciplina extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblTextoduracao))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(txtSemestres, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblMeses)))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,9 +217,9 @@ public class frmCadProfessorDisciplina extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblMeses))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                            .addComponent(lblMeses)
+                            .addComponent(txtSemestres, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -213,14 +231,59 @@ public class frmCadProfessorDisciplina extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    private void adicionadisciplinatable() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Curso");
+        model.addColumn("Disciplina");
+        for(ProfessorDisciplinas pf : professordisciplinas){
+            Vector v = new Vector();
+            Curso curso = new Curso();
+            curso = cursodao.Abrir(pf.getDisciplina().getCurso().getCodcurso());
+            v.add(curso);
+            v.add(pf.getDisciplina());
+            model.addRow(v);
+        }
+        
+        jTable1.setModel(model);
+    
+    }
+    
     private void cbxdisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxdisciplinaActionPerformed
         // TODO add your handling code here:
+        /*Disciplina d = new Disciplina();
+         d = (Disciplina) cbxdisciplina.getSelectedItem();
+         System.out.println(d);
+         txtareaEmenta.setText(d.getEmenta());*/
     }//GEN-LAST:event_cbxdisciplinaActionPerformed
-
+    
     private void cbxcursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxcursoActionPerformed
         // TODO add your handling code here:
-        
+        Curso curso = new Curso();
+        curso = (Curso) cbxcurso.getSelectedItem();
+        cbxdisciplina.removeAllItems();
+        for (Disciplina disciplina : disciplinadao.ListarDisciplina(curso.getCodcurso())) {
+            cbxdisciplina.addItem(disciplina);
+        }
+        txtSemestres.setText(Integer.toString(curso.getDuracao()));
     }//GEN-LAST:event_cbxcursoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar esta disciplina para este professor?") == 0) {
+            ProfessorDisciplinas professordisciplina = new ProfessorDisciplinas();
+            disciplina = (Disciplina) cbxdisciplina.getSelectedItem();
+            professordisciplina.setDisciplina(disciplina);
+            professordisciplina.setProfessor(professor);
+            if(professor.getDisciplinas().contains(professordisciplina)){
+                JOptionPane.showMessageDialog(RootPane, "Disciplina já adicionada");
+            } else {
+                professor.addDisciplinas(disciplina);
+                professordisciplinas.add(professordisciplina);
+                adicionadisciplinatable();
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbxcurso;
     private javax.swing.JComboBox cbxdisciplina;
@@ -229,13 +292,15 @@ public class frmCadProfessorDisciplina extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCurso;
     private javax.swing.JLabel lblDisciplina;
     private javax.swing.JLabel lblDuracao;
     private javax.swing.JLabel lblEmenta;
     private javax.swing.JLabel lblMeses;
     private javax.swing.JLabel lblTextoduracao;
+    private javax.swing.JFormattedTextField txtSemestres;
+    private javax.swing.JTextArea txtareaEmenta;
     // End of variables declaration//GEN-END:variables
+
+    
 }
