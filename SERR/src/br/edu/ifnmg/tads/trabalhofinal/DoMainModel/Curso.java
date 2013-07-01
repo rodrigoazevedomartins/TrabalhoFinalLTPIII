@@ -65,15 +65,15 @@ public class Curso {
         this.disciplinas = disciplinas;
     }
 
-    public void addDisc(Disciplina disc) {
-        if(!disciplinas.contains(disc)){
-            disciplinas.add(disc);
+    public void addDisciplina(Disciplina disciplina) {
+        if(!disciplinas.contains(disciplina)){
+            disciplinas.add(disciplina);
         }
     }
     
-    public void removeDisciplina(Disciplina disc) {
-        if(disciplinas.contains(disc)){
-            disciplinas.remove(disc);
+    public void removeDisciplina(Disciplina disciplina) {
+        if(disciplinas.contains(disciplina)){
+            disciplinas.remove(disciplina);
         }
     }
     

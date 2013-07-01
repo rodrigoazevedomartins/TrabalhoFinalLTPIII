@@ -35,8 +35,6 @@ public class CursoDAO {
             ResultSet resultado = comando.executeQuery();
             resultado.first();
             codcurso = (resultado.getInt("codcurso"));
-            System.out.println(codcurso);
-
         } catch (SQLException ex) {
             Logger.getLogger(CursoDAO.class.getName()).log(Level.SEVERE, null, ex);
 

@@ -52,10 +52,32 @@ public class DisciplinaDAO {
         }
 
     }
-
-    public List<Disciplina> ListarDisciplina(int cod) {
-        List<Disciplina> disciplinas = new LinkedList<>();
+    
+    public Disciplina Abrir(int cod){
         try {
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("select * from disciplinas where coddisciplina = ?");
+            comando.setInt(1, cod);
+            ResultSet resultado = comando.executeQuery();
+            resultado.first();
+            Disciplina disc = new Disciplina();
+            Curso curso = new Curso();
+            disc.setCoddisciplina(resultado.getInt("coddisciplina"));
+            disc.setNome(resultado.getString("nome"));
+            disc.setEmenta(resultado.getString("ementa"));
+            curso.setCodcurso(resultado.getInt("codcurso"));
+            disc.setCurso(curso);
+            return disc;
+        } catch (SQLException ex) {
+            Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public List<Disciplina> ListarDisciplina(int cod) {
+       
+        try {
+             List<Disciplina> disciplinas = new LinkedList<>();
             PreparedStatement comando = bd.getConexao().
                     prepareStatement("select * from disciplinas where codcurso = ? and ativo = 1");
             comando.setInt(1, cod);
@@ -68,7 +90,6 @@ public class DisciplinaDAO {
                 disc.setEmenta(resultado.getString("ementa"));
                 curso.setCodcurso(resultado.getInt("codcurso"));
                 disc.setCurso(curso);
-                
                 disciplinas.add(disc);
             }
             return disciplinas;
@@ -90,4 +111,18 @@ public class DisciplinaDAO {
             return false;
         }
     }
+    
+    public boolean ApagarDiscProf(int cod){
+        try {
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("update professor_disciplinas set ativo = 0 where coddisciplina = ?");
+            comando.setInt(1, cod);
+            comando.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
 }

@@ -8,11 +8,13 @@ import br.edu.ifnmg.tads.trabalhofinal.DataAccess.EmailDAO;
 import br.edu.ifnmg.tads.trabalhofinal.DataAccess.EnderecoDAO;
 import br.edu.ifnmg.tads.trabalhofinal.DataAccess.PessoaDAO;
 import br.edu.ifnmg.tads.trabalhofinal.DataAccess.ProfessorDAO;
+import br.edu.ifnmg.tads.trabalhofinal.DataAccess.ProfessorDisciplinaDAO;
 import br.edu.ifnmg.tads.trabalhofinal.DataAccess.TelefoneDAO;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Email;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Endereco;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Pessoa;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Professor;
+import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.ProfessorDisciplinas;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Telefone;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,11 +34,13 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
     private EmailDAO emaildao;
     private EnderecoDAO enderecodao;
     private TelefoneDAO telefonedao;
+    private ProfessorDisciplinaDAO professordisciplinadao;
     /**
      * Creates new form frmListaProfessor
      */
     public frmListaProfessor() {
         initComponents();
+        professordisciplinadao = new ProfessorDisciplinaDAO();
         pessoadao = new PessoaDAO();
         professordao = new ProfessorDAO();
         enderecodao = new EnderecoDAO();
@@ -124,7 +128,8 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Adicionar Disciplinar");
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton1.setText("Disciplinas");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -170,7 +175,7 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
                         .addComponent(btnRemoverProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -214,6 +219,11 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
                 pessoa.setEmails(emaildao.Abrir(professor.getCodpessoa()));
                 pessoa.setEnderecos(enderecodao.Abrir(professor.getCodpessoa()));
                 pessoa.setTelefones(telefonedao.Abrir(professor.getCodpessoa()));
+                
+                for (ProfessorDisciplinas pf : professordisciplinadao.ListarTodas(professor.getCodprofessor())){
+                    professordisciplinadao.Apagar(pf);
+                }
+                
 
                 for (Endereco en : pessoa.getEnderecos()){
                     enderecodao.Apagar(en.getCodendereco());
@@ -318,7 +328,7 @@ public class frmListaProfessor extends javax.swing.JInternalFrame {
         
             Professor professor = (Professor) tblProfessores.getValueAt(tblProfessores.getSelectedRow(), 1);
             
-            frmCadProfessorDisciplina janela = new frmCadProfessorDisciplina(professor.getCodprofessor());
+            frmProfessorDisciplina janela = new frmProfessorDisciplina(professor.getCodprofessor());
             this.getParent().add(janela);
             janela.setVisible(true);
             this.setVisible(false);

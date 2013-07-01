@@ -5,7 +5,10 @@
 package br.edu.ifnmg.tads.trabalhofinal.InterfaceUsuario;
 
 import br.edu.ifnmg.tads.trabalhofinal.DataAccess.CursoDAO;
+import br.edu.ifnmg.tads.trabalhofinal.DataAccess.DisciplinaDAO;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Curso;
+import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Disciplina;
+import com.sun.org.apache.bcel.internal.generic.D2F;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -19,9 +22,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmListaCurso extends javax.swing.JInternalFrame {
 
-    List<Curso> cursos;
-    CursoDAO cursodao;
-    
+    private List<Curso> cursos;
+    private CursoDAO cursodao;
+    private DisciplinaDAO disciplinadao;
     /**
      * Creates new form frmListaCurso
      */
@@ -29,6 +32,7 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
         initComponents();
         cursodao = new CursoDAO();
         cursos = cursodao.ListarTodos();
+        disciplinadao = new DisciplinaDAO();
         adicionacursotable(cursos);
     }
 
@@ -50,11 +54,13 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
         tblCursos = new javax.swing.JTable();
 
         setClosable(true);
-        setIconifiable(true);
         setTitle("Lista de Cursos");
 
+        cbxfiltro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cbxfiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Código", "Nome", "Duração" }));
 
+        btnBusca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnBusca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon_busca.fw.png"))); // NOI18N
         btnBusca.setText("Buscar");
         btnBusca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,8 +68,17 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon_editar.fw.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
+        btnRemove.setBackground(new java.awt.Color(98, 155, 88));
+        btnRemove.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon_remove.fw.png"))); // NOI18N
         btnRemove.setText("Remover");
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,13 +88,13 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
 
         tblCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-
+                "Código", "Nome", "Duração"
             }
         ));
         jScrollPane1.setViewportView(tblCursos);
@@ -90,35 +105,40 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnBusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRemove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(27, 27, 27))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxfiltro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBusca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRemove, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBusca)
-                    .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAlterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRemove))
+                        .addGap(14, 14, 14)
+                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
+
+        btnAlterar.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -150,10 +170,15 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
         
         curso = (Curso) tblCursos.getValueAt(tblCursos.getSelectedRow(), 1);
         
+        for (Disciplina disciplina : disciplinadao.ListarDisciplina(curso.getCodcurso())){
+            disciplinadao.Apagar(disciplina.getCoddisciplina());
+            disciplinadao.ApagarDiscProf(disciplina.getCoddisciplina());
+        }
+        
         if (cursodao.Apagar(curso.getCodcurso())){        
            cursos.remove(curso);
            JOptionPane.showMessageDialog(rootPane, "Curso Removido com Sucesso!");
-            }
+           }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Ação Cancelada!");
         }
@@ -187,6 +212,24 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
         adicionacursotable(cursos);
     
     }//GEN-LAST:event_btnBuscaActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        if (tblCursos.getSelectedRow() >= 0){
+        
+            Curso curso = (Curso) tblCursos.getValueAt(tblCursos.getSelectedRow(), 1);
+            
+            frmEditarCurso janela = new frmEditarCurso(curso.getCodcurso());
+            this.getParent().add(janela);
+            janela.setVisible(true);
+            this.setVisible(false);        
+        
+        } else {
+            
+            JOptionPane.showMessageDialog(rootPane, "Selecione um Curso por favor!");
+            
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

@@ -246,7 +246,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void MenuCadCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadCursoActionPerformed
         // TODO add your handling code here:
-        frmCadastroCurso janela = new frmCadastroCurso();
+        frmCadCurso janela = new frmCadCurso();
         add(janela);
         janela.setVisible(true);
     }//GEN-LAST:event_MenuCadCursoActionPerformed

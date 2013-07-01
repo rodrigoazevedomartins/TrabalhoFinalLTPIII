@@ -13,19 +13,31 @@ import java.util.Objects;
  */
 public class ProfessorDisciplinas {
     
+    private int codprofessordisciplina;
     private Professor professor;
     private Disciplina disciplina;
     
     public ProfessorDisciplinas(){
+        this.codprofessordisciplina = 0;
         this.disciplina = new Disciplina();
         this.professor = new Professor();
     }
     
-    public ProfessorDisciplinas(Professor professor, Disciplina disciplina){
+    public ProfessorDisciplinas(int cod, Professor professor, Disciplina disciplina){
+        this.codprofessordisciplina = cod;
         this.professor = professor;
         this.disciplina = disciplina;
     }
 
+    public int getCodprofessordisciplina() {
+        return codprofessordisciplina;
+    }
+
+    public void setCodprofessordisciplina(int codprofessordisciplina) {
+        this.codprofessordisciplina = codprofessordisciplina;
+    }
+
+    
     public Professor getProfessor() {
         return professor;
     }

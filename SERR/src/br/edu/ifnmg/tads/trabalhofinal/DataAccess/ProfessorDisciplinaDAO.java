@@ -30,14 +30,13 @@ public class ProfessorDisciplinaDAO {
     public boolean Salvar(ProfessorDisciplinas pd) {
 
         try {
-            if (pd.getProfessor().getCodprofessor() == 0) {
+            if (pd.getCodprofessordisciplina() == 0){
                 PreparedStatement comando = bd.getConexao().
                         prepareStatement("insert into professor_disciplinas(codprofessor, coddisciplina, ativo) values (?,?,?)");
                 comando.setInt(1, pd.getProfessor().getCodprofessor());
                 comando.setInt(2, pd.getDisciplina().getCoddisciplina());
                 comando.setInt(3, 1);
                 comando.executeUpdate();
-
             }
             return true;
         } catch (SQLException ex) {
@@ -50,15 +49,18 @@ public class ProfessorDisciplinaDAO {
         List<ProfessorDisciplinas> pds = new LinkedList<>();
         try {
             PreparedStatement comando = bd.getConexao().
-                    prepareStatement("select * from professor_disciplinas where codprofessor = ?");
+                    prepareStatement("select * from professor_disciplinas where codprofessor = ? and ativo = 1");
             comando.setInt(1, cod);
             ResultSet resultado = comando.executeQuery();
             while(resultado.next()){
                 ProfessorDisciplinas pd = new ProfessorDisciplinas();
                 Professor professor = new Professor();
                 Disciplina disciplina = new Disciplina();
+                pd.setCodprofessordisciplina(resultado.getInt("codprofessor_disciplina"));
                 professor.setCodprofessor(resultado.getInt("codprofessor"));
                 disciplina.setCoddisciplina(resultado.getInt("coddisciplina"));
+                pd.setProfessor(professor);
+                pd.setDisciplina(disciplina);
                 pds.add(pd);
             }
             return pds;
@@ -71,9 +73,8 @@ public class ProfessorDisciplinaDAO {
     public boolean Apagar(ProfessorDisciplinas pd){
         try {
             PreparedStatement comando = bd.getConexao().
-                    prepareStatement("update professor_disciplinas set ativo = 0 where codprofessor = ? and coddisciplina = ?");
-            comando.setInt(1, pd.getProfessor().getCodprofessor());
-            comando.setInt(2, pd.getDisciplina().getCoddisciplina());
+                    prepareStatement("update professor_disciplinas set ativo = 0 where codprofessor_disciplina = ?");
+            comando.setInt(1, pd.getCodprofessordisciplina());
             comando.executeUpdate();
             return true;
         } catch (SQLException ex) {
