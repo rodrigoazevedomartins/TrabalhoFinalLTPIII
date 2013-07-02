@@ -30,23 +30,37 @@ public class EmprestimoReservaRecursoDAO {
     
     public boolean Salvar(EmprestimoReservaRecurso empreserecurso){
         try {
-            if (empreserecurso.getCodemprestimoreservarecurso() == 0){
+            if (empreserecurso.getCodemprestimoreservarecurso() == 0 && empreserecurso.getEmprestimoreserva().
+                    getOperacao().getCodoperacao() == 2){
             PreparedStatement comando = bd.getConexao()
-                    .prepareStatement("insert into emprestimo_reserva_recurso(codrecurso, codemprestimo_reserva, "
-                    + "codstatus_recurso, dataprevdevolucao_empr, ativo) values(?,?,?,?,?)");
+                    .prepareStatement("insert into emprestimos_reservas_recursos(codrecurso, codemprestimo_reserva, "
+                    + "codstatusrecurso, ativo) values(?,?,?,?)");
             comando.setInt(1, empreserecurso.getRecurso().getCodrecurso());
             comando.setInt(2, empreserecurso.getEmprestimoreserva().getCodemprestimoreserva());
-            comando.setInt(3, empreserecurso.getStatus().getCodstatusrecurso());
-            comando.setDate(4, (Date) empreserecurso.getDataprevdevolucao());
-            comando.setInt(5, 1);
+            comando.setInt(3, 3);
+            comando.setInt(4, 1);
             comando.executeUpdate();
-            } else if (empreserecurso.getStatus().getCodstatusrecurso() == 2) {
-                PreparedStatement comando = bd.getConexao()
-                        .prepareStatement("update emprestimo_reserva_recurso set "
-                        + "datadevolucao_empr = now() where codemprestimo_reserva_recurso = ?");
-                comando.setInt(1, empreserecurso.getCodemprestimoreservarecurso());
-                comando.executeUpdate();
-            }
+            } else if (empreserecurso.getCodemprestimoreservarecurso() == 0 && empreserecurso.getEmprestimoreserva().
+                    getOperacao().getCodoperacao() == 1) {
+                    PreparedStatement comando = bd.getConexao()
+                    .prepareStatement("insert into emprestimos_reservas_recursos(codrecurso, codemprestimo_reserva, "
+                    + "dataprevdevolucao_empr, codstatusrecurso, ativo) values(?,?,?,?,?)");
+                    comando.setInt(1, empreserecurso.getRecurso().getCodrecurso());
+                    comando.setInt(2, empreserecurso.getEmprestimoreserva().getCodemprestimoreserva());
+                    java.sql.Timestamp datahora = new java.sql.Timestamp(empreserecurso.getDataprevdevolucao().getTime());
+                    comando.setTimestamp(3, datahora);
+                    comando.setInt(4, 1);
+                    comando.setInt(5, 1);
+                    comando.executeUpdate();
+                   } else if (empreserecurso.getCodemprestimoreservarecurso() > 0 && empreserecurso.getStatus().
+                           getCodstatusrecurso() == 2){
+                            PreparedStatement comando = bd.getConexao()
+                            .prepareStatement("update emprestimo_reserva_recurso set "
+                                + "datadevolucao_empr = now(), codstatusrecurso = ? where codemprestimo_reserva_recurso = ?");
+                            comando.setInt(1, empreserecurso.getCodemprestimoreservarecurso());
+                            comando.setInt(1, 2);
+                            comando.executeUpdate();
+                            }
             return true;
                     
         } catch (SQLException ex) {

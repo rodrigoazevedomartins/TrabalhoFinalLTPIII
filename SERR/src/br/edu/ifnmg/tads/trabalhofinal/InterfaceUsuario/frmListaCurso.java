@@ -68,6 +68,7 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAlterar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon_editar.fw.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -135,7 +136,7 @@ public class frmListaCurso extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         btnAlterar.getAccessibleContext().setAccessibleDescription("");

@@ -8,12 +8,12 @@ package br.edu.ifnmg.tads.trabalhofinal.InterfaceUsuario;
  *
  * @author ADMIN
  */
-public class frmEditarReserva extends javax.swing.JInternalFrame {
+public class frmEditarEmprestimoReserva extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form frmEditarReserva
      */
-    public frmEditarReserva() {
+    public frmEditarEmprestimoReserva() {
         initComponents();
     }
 
@@ -40,7 +40,7 @@ public class frmEditarReserva extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 282, Short.MAX_VALUE)
         );
 
         pack();

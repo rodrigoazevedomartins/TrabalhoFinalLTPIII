@@ -30,13 +30,13 @@ public class EmprestimoReservaDAO {
         bd =  new BD();
     }
     
-    public int Consultacodpessoa(){
+    public int Consultacodemprestimoreserva(){
         int codemprestimo_reserva = 0;    
         try {
                 
                 PreparedStatement comando = bd.getConexao().
                         prepareStatement("select max(codemprestimo_reserva) as codemprestimo_reserva "
-                        + "from emprestimo_reserva");
+                        + "from emprestimos_reservas");
                 ResultSet resultado = comando.executeQuery();
                 resultado.first();
                 codemprestimo_reserva = (resultado.getInt("codemprestimo_reserva"));
@@ -63,12 +63,14 @@ public class EmprestimoReservaDAO {
                 if (emprestimoreserva.getCodemprestimoreserva() == 0 && 
                         emprestimoreserva.getOperacao().getCodoperacao() == 2){
                     PreparedStatement comando = bd.getConexao().
-                            prepareStatement("insert into emprestimos_reservas(datareserva,"
-                            + "codoperacao, codsecao, codpessoa, ativo) values(now(),?,?,?,?)");
-                    comando.setInt(1, emprestimoreserva.getOperacao().getCodoperacao());
-                    comando.setInt(2, emprestimoreserva.getSecao().getCodsecao());
-                    comando.setInt(3, emprestimoreserva.getPessoa().getCodpessoa());
-                    comando.setInt(4, 1);
+                            prepareStatement("insert into emprestimos_reservas(datareserva, dataprevempr,"
+                            + "codoperacao, codsecao, codpessoa, ativo) values(now(),?,?,?,?,?)");
+                    java.sql.Timestamp datahora = new java.sql.Timestamp(emprestimoreserva.getDataprevemprestimo().getTime());
+                    comando.setTimestamp(1, datahora);
+                    comando.setInt(2, emprestimoreserva.getOperacao().getCodoperacao());
+                    comando.setInt(3, emprestimoreserva.getSecao().getCodsecao());
+                    comando.setInt(4, emprestimoreserva.getPessoa().getCodpessoa());
+                    comando.setInt(5, 1);
                     comando.executeUpdate();
             } else 
                     if (emprestimoreserva.getCodemprestimoreserva() > 0 && 
@@ -85,12 +87,14 @@ public class EmprestimoReservaDAO {
                         if (emprestimoreserva.getCodemprestimoreserva() > 0 &&
                                 emprestimoreserva.getOperacao().getCodoperacao() == 2){
                             PreparedStatement comando = bd.getConexao().
-                                prepareStatement("update emprestimos_reservas set datareserva = now(), "
+                                prepareStatement("update emprestimos_reservas set datareserva = now(), dataprevempr = ?,"
                                 + "codoperacao = ?, codsecao = ?, codpessoa = ? where codemprestimo_reserva = ?");
-                            comando.setInt(1, emprestimoreserva.getOperacao().getCodoperacao());
-                            comando.setInt(2, emprestimoreserva.getSecao().getCodsecao());
-                            comando.setInt(3, emprestimoreserva.getPessoa().getCodpessoa());
-                            comando.setInt(4, emprestimoreserva.getCodemprestimoreserva());
+                            java.sql.Timestamp datahora = new java.sql.Timestamp(emprestimoreserva.getDataprevemprestimo().getTime());
+                            comando.setTimestamp(1, datahora);
+                            comando.setInt(2, emprestimoreserva.getOperacao().getCodoperacao());
+                            comando.setInt(3, emprestimoreserva.getSecao().getCodsecao());
+                            comando.setInt(4, emprestimoreserva.getPessoa().getCodpessoa());
+                            comando.setInt(5, emprestimoreserva.getCodemprestimoreserva());
                             comando.executeUpdate();
                         }
             return true;
@@ -113,8 +117,8 @@ public class EmprestimoReservaDAO {
             Secao secao = new Secao();
             Pessoa pessoa = new Pessoa();
             emprestimoreserva.setCodemprestimoreserva(resultado.getInt("codemprestimo_reserva"));
-            emprestimoreserva.setDataemprestimo(resultado.getDate("dataemprestimo"));
-            emprestimoreserva.setDatareserva(resultado.getDate("datareserva"));
+            emprestimoreserva.setDataemprestimo(resultado.getTimestamp("dataemprestimo"));
+            emprestimoreserva.setDatareserva(resultado.getTimestamp("datareserva"));
             operacao.setCodoperacao(resultado.getInt("codoperacao"));
             secao.setCodsecao(resultado.getInt("codsecao"));
             pessoa.setCodpessoa(resultado.getInt("codpessoa"));
@@ -140,7 +144,7 @@ public class EmprestimoReservaDAO {
                 Operacao operacao = new Operacao();
                 Secao secao = new Secao();
                 Pessoa pessoa = new Pessoa();
-                emprestimoreserva.setCodemprestimoreserva(resultado.getInt("codemprestimoreserva"));
+                emprestimoreserva.setCodemprestimoreserva(resultado.getInt("codemprestimo_reserva"));
                 emprestimoreserva.setDataemprestimo(resultado.getDate("dataemprestimo"));
                 emprestimoreserva.setDatareserva(resultado.getDate("datareserva"));
                 operacao.setCodoperacao(resultado.getInt("codoperacao"));
@@ -164,7 +168,7 @@ public class EmprestimoReservaDAO {
             List<EmprestimoReserva> emprestimosreservas = new LinkedList<>();
             String sql = "select * from emprestimos_reservas";
             String where = "";
-            String order = " order by codemprestimoreserva asc";
+            String order = " order by codemprestimo_reserva asc";
             
             if (filtro.getCodemprestimoreserva() > 0){
                 where = "codemprestimo_reserva = " + filtro.getCodemprestimoreserva();
@@ -173,19 +177,13 @@ public class EmprestimoReservaDAO {
             if (filtro.getOperacao().getCodoperacao() > 0){
                 if (where.length() > 0)
                     where = where + " and ";
-                where = "codoperacao = " + filtro.getOperacao();
+                where = "codoperacao = " + filtro.getOperacao().getCodoperacao();
             }
-            
-            if (filtro.getPessoa().getCodpessoa() > 0){
-                if (where.length() > 0)
-                    where = where + " and ";
-                where = "codpessoa = " + filtro.getPessoa().getCodpessoa();
-            }
-            
+                        
             if (where.length() > 0){
-                sql = sql + " where " + where + "and ativo = 1";
+                sql = sql + " where " + where + " and ativo = 1";
             } else {
-                sql = sql + " where " + "ativo = 1";
+                sql = sql + " where " + " ativo = 1";
             }
             
             sql = sql + order;
@@ -198,9 +196,9 @@ public class EmprestimoReservaDAO {
                 Operacao operacao = new Operacao();
                 Secao secao = new Secao();
                 Pessoa pessoa = new Pessoa();
-                emprestimoreserva.setCodemprestimoreserva(resultado.getInt("codemprestimoreserva"));
-                emprestimoreserva.setDataemprestimo(resultado.getDate("dataemprestimo"));
-                emprestimoreserva.setDatareserva(resultado.getDate("datareserva"));
+                emprestimoreserva.setCodemprestimoreserva(resultado.getInt("codemprestimo_reserva"));
+                emprestimoreserva.setDataemprestimo(resultado.getTimestamp("dataemprestimo"));
+                emprestimoreserva.setDatareserva(resultado.getTimestamp("datareserva"));
                 operacao.setCodoperacao(resultado.getInt("codoperacao"));
                 secao.setCodsecao(resultado.getInt("codsecao"));
                 pessoa.setCodpessoa(resultado.getInt("codpessoa"));

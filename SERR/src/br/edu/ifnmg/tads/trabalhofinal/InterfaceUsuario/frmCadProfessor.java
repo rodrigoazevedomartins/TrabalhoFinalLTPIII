@@ -16,7 +16,13 @@ import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Pessoa;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Professor;
 import br.edu.ifnmg.tads.trabalhofinal.DoMainModel.Telefone;
 import java.awt.Component;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -623,6 +629,21 @@ public class frmCadProfessor extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    public static Date formataData(String data) throws Exception {
+        if (data == null || data.equals("")) {
+            return null;
+        }
+
+        Date date = null;
+        try {
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            date = (java.util.Date) formatter.parse(data);
+        } catch (ParseException e) {
+            throw e;
+        }
+        return date;
+    }
+    
     private void adicionaemailtable(){
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Código");
@@ -876,9 +897,14 @@ public class frmCadProfessor extends javax.swing.JInternalFrame {
                 pessoa.setNome(txtNome.getText());
                 pessoa.setRg(txtRg.getText());
                 pessoa.setCpf(Integer.parseInt(txtCpf.getText()));
-                //pessoa.setDatanasc(datanasc);
-           
-
+                
+                Date test = null; 
+            try {
+                test = formataData(txtDataNasc.getText());
+            } catch (Exception ex) {
+                Logger.getLogger(frmCadProfessor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            pessoa.setDatanasc(test);
             if (pessoadao.Salvar(pessoa)) {
                     pessoa.setCodpessoa(pessoadao.Consultacodpessoa());
                 for(Email em : pessoa.getEmails()){
