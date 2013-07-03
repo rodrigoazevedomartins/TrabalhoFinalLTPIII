@@ -60,22 +60,23 @@ public class frmPrincipal extends javax.swing.JFrame {
         MenuListaFuncionarios = new javax.swing.JMenuItem();
         MenuCursos = new javax.swing.JMenu();
         MenuCadCurso = new javax.swing.JMenuItem();
-        MenuCadList = new javax.swing.JMenuItem();
+        MenuListaCurso = new javax.swing.JMenuItem();
         MenuRecursos = new javax.swing.JMenu();
         MenuCadRecurso = new javax.swing.JMenuItem();
         MenuCadTipoRecurso = new javax.swing.JMenuItem();
         MenuListaRecurso = new javax.swing.JMenuItem();
         MenuListaTipoRecurso = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        MenuCadEmprRes = new javax.swing.JMenuItem();
+        MenuListaEmprRes = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Principal");
         setMinimumSize(new java.awt.Dimension(20, 20));
 
         jLabel1.setText("jLabel1");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Sair");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -134,13 +135,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         MenuCursos.add(MenuCadCurso);
 
-        MenuCadList.setText("Listar Cursos");
-        MenuCadList.addActionListener(new java.awt.event.ActionListener() {
+        MenuListaCurso.setText("Listar Cursos");
+        MenuListaCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuCadListActionPerformed(evt);
+                MenuListaCursoActionPerformed(evt);
             }
         });
-        MenuCursos.add(MenuCadList);
+        MenuCursos.add(MenuListaCurso);
 
         jMenuBar1.add(MenuCursos);
 
@@ -182,21 +183,21 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Emprestimos e Reservas");
 
-        jMenuItem1.setText("Novo Empréstimo ou Reserva");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        MenuCadEmprRes.setText("Novo Empréstimo ou Reserva");
+        MenuCadEmprRes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                MenuCadEmprResActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(MenuCadEmprRes);
 
-        jMenuItem2.setText("Listar de Empréstimos e Reservas");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        MenuListaEmprRes.setText("Lista de Empréstimos e Reservas");
+        MenuListaEmprRes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                MenuListaEmprResActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(MenuListaEmprRes);
 
         jMenuBar1.add(jMenu1);
 
@@ -207,21 +208,21 @@ public class frmPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(895, Short.MAX_VALUE)
+                .addContainerGap(935, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(140, 140, 140))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(48, 48, 48))))
+                        .addComponent(jLabel1)
+                        .addGap(69, 69, 69))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jButton1)
-                .addGap(36, 36, 36)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addContainerGap(458, Short.MAX_VALUE))
         );
@@ -274,12 +275,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         janela.setVisible(true);
     }//GEN-LAST:event_MenuCadCursoActionPerformed
 
-    private void MenuCadListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadListActionPerformed
+    private void MenuListaCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaCursoActionPerformed
         // TODO add your handling code here:
         frmListaCurso janela = new frmListaCurso();
         add(janela);
         janela.setVisible(true);
-    }//GEN-LAST:event_MenuCadListActionPerformed
+    }//GEN-LAST:event_MenuListaCursoActionPerformed
 
     private void MenuListaTipoRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaTipoRecursoActionPerformed
         // TODO add your handling code here:
@@ -297,31 +298,32 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void MenuListaRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaRecursoActionPerformed
         // TODO add your handling code here:
-        frmCadRecursos janela = new frmCadRecursos();
+        frmListaRecursos janela = new frmListaRecursos();
         add(janela);
         janela.setVisible(true);
+        
     }//GEN-LAST:event_MenuListaRecursoActionPerformed
 
     private void MenuCadRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadRecursoActionPerformed
         // TODO add your handling code here:
-        frmListaRecursos janela = new frmListaRecursos();
+        frmCadRecursos janela = new frmCadRecursos();
         add(janela);
         janela.setVisible(true);
     }//GEN-LAST:event_MenuCadRecursoActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void MenuCadEmprResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadEmprResActionPerformed
         // TODO add your handling code here:
         frmCadEmprestimoReserva janela = new frmCadEmprestimoReserva(usuario.getCodusuario());
         add(janela);
         janela.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_MenuCadEmprResActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void MenuListaEmprResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaEmprResActionPerformed
         // TODO add your handling code here:
         frmListaEmprestimoReserva janela = new frmListaEmprestimoReserva();
         add(janela);
         janela.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_MenuListaEmprResActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,13 +361,15 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuCadCurso;
+    private javax.swing.JMenuItem MenuCadEmprRes;
     private javax.swing.JMenuItem MenuCadFuncionario;
-    private javax.swing.JMenuItem MenuCadList;
     private javax.swing.JMenuItem MenuCadProfessor;
     private javax.swing.JMenuItem MenuCadRecurso;
     private javax.swing.JMenuItem MenuCadTipoRecurso;
     private javax.swing.JMenu MenuCursos;
     private javax.swing.JMenu MenuFuncionarios;
+    private javax.swing.JMenuItem MenuListaCurso;
+    private javax.swing.JMenuItem MenuListaEmprRes;
     private javax.swing.JMenuItem MenuListaFuncionarios;
     private javax.swing.JMenuItem MenuListaProfessores;
     private javax.swing.JMenuItem MenuListaRecurso;
@@ -376,7 +380,5 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }

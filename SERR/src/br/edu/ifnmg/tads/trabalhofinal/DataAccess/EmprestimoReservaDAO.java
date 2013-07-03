@@ -12,6 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -145,8 +148,11 @@ public class EmprestimoReservaDAO {
                 Secao secao = new Secao();
                 Pessoa pessoa = new Pessoa();
                 emprestimoreserva.setCodemprestimoreserva(resultado.getInt("codemprestimo_reserva"));
-                emprestimoreserva.setDataemprestimo(resultado.getDate("dataemprestimo"));
-                emprestimoreserva.setDatareserva(resultado.getDate("datareserva"));
+                //emprestimoreserva.setDataemprestimo(resultado.getTimestamp("dataemprestimo"));
+                if (resultado.getTimestamp("dataemprestimo") != null){
+                emprestimoreserva.setDataemprestimo(resultado.getTimestamp("dataemprestimo"));
+                }
+                emprestimoreserva.setDatareserva(resultado.getTimestamp("datareserva"));
                 operacao.setCodoperacao(resultado.getInt("codoperacao"));
                 secao.setCodsecao(resultado.getInt("codsecao"));
                 pessoa.setCodpessoa(resultado.getInt("codpessoa"));

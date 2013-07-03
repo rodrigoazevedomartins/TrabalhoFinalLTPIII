@@ -66,7 +66,8 @@ public class frmListaEmprestimoReserva extends javax.swing.JInternalFrame {
         cbxfiltro_secundario = new javax.swing.JComboBox();
 
         setClosable(true);
-        setTitle("Listar Reservas");
+        setResizable(true);
+        setTitle("Lista Reservas");
 
         cbxfiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Código", "Nome", "Operação" }));
         cbxfiltro.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +141,7 @@ public class frmListaEmprestimoReserva extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
+                .addContainerGap(59, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -166,6 +167,8 @@ public class frmListaEmprestimoReserva extends javax.swing.JInternalFrame {
         model.addColumn("Código");
         model.addColumn("Nome do Requisitante");
         model.addColumn("Operação");
+        model.addColumn("Data Empréstimo");
+        model.addColumn("Data Reserva");
         for (EmprestimoReserva em : esrs){
             Vector v = new Vector();
             pessoa = new Pessoa();
@@ -177,11 +180,20 @@ public class frmListaEmprestimoReserva extends javax.swing.JInternalFrame {
                 v.add(2, "Empréstimo");
             } else {
                 v.add(2, "Reserva");
+                v.add(3, em.getDatareserva());
             }
             
+            /*String data = null;
+            data = em.getDataemprestimo().getDay() + "/" + em.getDataemprestimo().getMonth() + "/" + em.get + " as " + 
+                    em.getDataemprestimo().getHours();
+            data = data + " : " + em.getDataemprestimo().getMinutes() + 
+                            " : " + em.getDataemprestimo().getSeconds();
+            */
+            v.add(3, em.getDataemprestimo());
+            v.add(4, em.getDatareserva());     
             model.addRow(v);
         }
-        
+       
         tblListaRecursos.setModel(model);
     }
     
