@@ -433,7 +433,7 @@ public class frmCadEmprestimoReserva extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpTablePainel, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -493,12 +493,18 @@ public class frmCadEmprestimoReserva extends javax.swing.JInternalFrame {
                try {
                    datareserva = formataData(ftxtDataEmpr.getText());
                    emprestimoreserva.setDataprevemprestimo(datareserva);
+                   emprestimoreserva.setDataemprestimo(datareserva);
                } catch (Exception ex) {
                    Logger.getLogger(frmCadEmprestimoReserva.class.getName()).log(Level.SEVERE, null, ex);
                }             
            }
            
            emprestimoreserva.setSecao(secao);
+           
+           System.out.print(emprestimoreserva.getDataemprestimo());
+           
+           System.out.print(emprestimoreserva.getDatareserva());
+           System.out.print(emprestimoreserva.getDataprevemprestimo());
            
            emprestimoreservadao.Salvar(emprestimoreserva);
            
@@ -507,12 +513,20 @@ public class frmCadEmprestimoReserva extends javax.swing.JInternalFrame {
            emprestimoreserva = emprestimoreservadao.Abrir(emprestimoreserva.getCodemprestimoreserva());
                      
            for (EmprestimoReservaRecurso err : emprestimoreservarecurso){
+               Calendar c = new GregorianCalendar();
                err.setEmprestimoreserva(emprestimoreserva);
+               
                if (emprestimoreserva.getOperacao().getCodoperacao() == 1){
-                 Calendar c = new GregorianCalendar(2013, emprestimoreserva.getDataemprestimo().getMonth(),
+                 c = new GregorianCalendar(emprestimoreserva.getDataemprestimo().getYear(), emprestimoreserva.getDataemprestimo().getMonth(),
                  emprestimoreserva.getDataemprestimo().getDay(), emprestimoreserva.getDataemprestimo().getHours(), emprestimoreserva.getDataemprestimo().getMinutes(), 
                  emprestimoreserva.getDataemprestimo().getSeconds());
-                if (err.getRecurso().getMedidatempo().getCodtempomaximo() == 1){                
+               } else {
+                        c = new GregorianCalendar(emprestimoreserva.getDataprevemprestimo().getYear(), emprestimoreserva.getDataprevemprestimo().getMonth(),
+                         emprestimoreserva.getDataprevemprestimo().getDay(), emprestimoreserva.getDataprevemprestimo().getHours(), emprestimoreserva.getDataprevemprestimo().getMinutes(),
+                         emprestimoreserva.getDataprevemprestimo().getSeconds());
+               } 
+               
+               if (err.getRecurso().getMedidatempo().getCodtempomaximo() == 1){                
                    c.add(c.MINUTE, err.getRecurso().getTempo());
                    err.setDataprevdevolucao(c.getTime());
                                      
@@ -532,19 +546,31 @@ public class frmCadEmprestimoReserva extends javax.swing.JInternalFrame {
                     c.add(c.WEEK_OF_MONTH, err.getRecurso().getTempo());
                     err.setDataprevdevolucao(c.getTime());
                 }               
-               }
+              
                
-               emprestimoreservarecursodao.Salvar(err);
+                System.out.print(err.getDatadevolucao());
+                
+               if (emprestimoreservarecursodao.ConsultaRecursoEmprestimo(err) == 0){
+                  
+                   if(emprestimoreservarecursodao.ConsultaRecursoReserva(err) == 0){
+                   emprestimoreservarecursodao.Salvar(err);
+                   if (emprestimoreserva.getOperacao().getCodoperacao() == 1){
+                    JOptionPane.showMessageDialog(rootPane, "Empréstimo realizado com sucesso!");
+                   } else {
+                    JOptionPane.showMessageDialog(rootPane, "Reserva realizada com sucesso!");
+                   }
+           
+                    this.dispose();
+ 
+                } else {
+                    JOptionPane.showMessageDialog(RootPane, "Recurso Reservado");
+                }
+               } else {
+                   JOptionPane.showMessageDialog(RootPane, "Recurso Emprestado");
+               }
            }
            
-           if (emprestimoreserva.getOperacao().getCodoperacao() == 1){
-                JOptionPane.showMessageDialog(rootPane, "Empréstimo realizado com sucesso!");
-           } else {
-               JOptionPane.showMessageDialog(rootPane, "Reserva realizada com sucesso!");
-           }
-           
-           this.dispose();
-        } else {
+                  } else {
             JOptionPane.showMessageDialog(rootPane, "Cadastro Cancelado!");
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
@@ -648,8 +674,10 @@ public class frmCadEmprestimoReserva extends javax.swing.JInternalFrame {
         Operacao operacao = (Operacao) cbxOperacao.getSelectedItem();
         if (operacao.getCodoperacao() == 1){
             ftxtDataEmpr.setEnabled(false);
+            lblDataReserva.setEnabled(false);
         } else {
             ftxtDataEmpr.setEnabled(true);
+            lblDataReserva.setEnabled(true);
         }
     }//GEN-LAST:event_cbxOperacaoActionPerformed
 

@@ -28,26 +28,53 @@ public class EmprestimoReservaRecursoDAO {
         bd = new BD();
     }
     
-    public int ConsultaRecurso(EmprestimoReservaRecurso err){
+    public int ConsultaRecursoEmprestimo(EmprestimoReservaRecurso err){
         try {
             PreparedStatement comando = bd.getConexao().
-                    prepareStatement("select count(*) from emprestimos_reservas_recursos err "
+                    prepareStatement("select count(*) as total from emprestimos_reservas_recursos err "
                     + "inner join emprestimos_reservas er on (er.codemprestimo_reserva = err.codemprestimo_reserva) "
-                    + "where ((err.codstatusrecurso = 1 and er.dataemprestimo >= ? and err.dataprevdevolucao_empr <= ?) "
-                    + "or (err.codstatusrecurso = 3 and er.dataprevempr >= ? and err.dataprevdevolucao_empr <= ?)) and err.codrecurso = ?");
+                    + "where ((err.codstatusrecurso = 1 and er.dataemprestimo <= ? and err.dataprevdevolucao_empr <= ?) "
+                    + "and err.codrecurso = ?)");
             java.sql.Timestamp dataempr = new java.sql.Timestamp(err.getEmprestimoreserva().getDataemprestimo().getTime());
             comando.setTimestamp(1, dataempr);
             java.sql.Timestamp dataprevdevempr = new java.sql.Timestamp(err.getDataprevdevolucao().getTime());
             comando.setTimestamp(2, dataprevdevempr);
-            java.sql.Timestamp dataprevempr = new java.sql.Timestamp(err.getEmprestimoreserva().getDataprevemprestimo().getTime());
-            comando.setTimestamp(3, dataprevempr);
-            comando.setTimestamp(4, dataprevdevempr);
-            comando.setInt(5, err.getRecurso().getCodrecurso());
+            comando.setInt(3, err.getRecurso().getCodrecurso());
+            System.out.print(comando);
             ResultSet resultado = comando.executeQuery();
             resultado.first();
-                
-                    
-            return 1;
+            int total = resultado.getInt("total");
+            if (total > 0){
+                return 1;
+            } else {
+                return 0;
+            }           
+        } catch (SQLException ex) {
+            Logger.getLogger(EmprestimoReservaRecursoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
+    
+    public int ConsultaRecursoReserva(EmprestimoReservaRecurso err){
+        try {
+            PreparedStatement comando = bd.getConexao().
+                    prepareStatement("select count(*) as total from emprestimos_reservas_recursos err "
+                    + "inner join emprestimos_reservas er on (er.codemprestimo_reserva = err.codemprestimo_reserva) "
+                    + "where ((err.codstatusrecurso = 3 and er.dataprevempr <= ? and err.dataprevdevolucao_empr <= ?)) and err.codrecurso = ?");
+            java.sql.Timestamp dataprevempr = new java.sql.Timestamp(err.getEmprestimoreserva().getDataprevemprestimo().getTime());
+            comando.setTimestamp(1, dataprevempr);
+            java.sql.Timestamp dataprevdevempr = new java.sql.Timestamp(err.getDataprevdevolucao().getTime());
+            comando.setTimestamp(2, dataprevdevempr);
+            comando.setInt(3, err.getRecurso().getCodrecurso());
+            ResultSet resultado = comando.executeQuery();
+            resultado.first();
+            int total = resultado.getInt("total");
+            if (total > 0){
+                return 1;
+            } else {
+                return 0;
+            }    
+   
         } catch (SQLException ex) {
             Logger.getLogger(EmprestimoReservaRecursoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
